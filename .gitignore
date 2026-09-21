@@ -9,3 +9,4 @@ secrets/
 
 # Node modules si se usan scripts
 node_modules/
+.vercel
