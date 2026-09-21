@@ -1403,16 +1403,22 @@ body {
           </div>
         </div>
 
-        <!-- Tabs de Marketing -->
-        <div style="background: white; padding: 8px; border-radius: 12px; margin-bottom: 12px; display: flex; gap: 4px;">
-          <button class="marketing-tab active" onclick="switchMarketingTab('equipo')" style="padding: 8px 16px; border: none; background: #0f172a; color: white; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">Equipo</button>
-          <button class="marketing-tab" onclick="switchMarketingTab('mercado')" style="padding: 8px 16px; border: none; background: transparent; color: #64748b; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">Investigación</button>
-          <button class="marketing-tab" onclick="switchMarketingTab('competencia')" style="padding: 8px 16px; border: none; background: transparent; color: #64748b; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">Competencia</button>
-          <button class="marketing-tab" onclick="switchMarketingTab('rrss')" style="padding: 8px 16px; border: none; background: transparent; color: #64748b; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">RRSS</button>
-          <button class="marketing-tab" onclick="switchMarketingTab('leads')" style="padding: 8px 16px; border: none; background: transparent; color: #64748b; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">Leads</button>
-          <button class="marketing-tab" onclick="switchMarketingTab('diseno')" style="padding: 8px 16px; border: none; background: transparent; color: #64748b; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">Diseño</button>
-          <button class="marketing-tab" onclick="switchMarketingTab('analytics')" style="padding: 8px 16px; border: none; background: transparent; color: #64748b; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">Analíticas</button>
-        </div>
+        <!-- Layout de 2 Columnas: Sidebar + Contenido -->
+        <div style="display: grid; grid-template-columns: 200px 1fr; gap: 12px;">
+
+          <!-- Sidebar Vertical de Tabs -->
+          <div style="background: white; padding: 8px; border-radius: 12px; display: flex; flex-direction: column; gap: 4px; height: fit-content;">
+            <button class="marketing-tab active" onclick="switchMarketingTab('equipo')" style="padding: 10px 16px; border: none; background: #0f172a; color: white; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; text-align: left; width: 100%;">Equipo</button>
+            <button class="marketing-tab" onclick="switchMarketingTab('mercado')" style="padding: 10px 16px; border: none; background: transparent; color: #64748b; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; text-align: left; width: 100%;">Investigación</button>
+            <button class="marketing-tab" onclick="switchMarketingTab('competencia')" style="padding: 10px 16px; border: none; background: transparent; color: #64748b; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; text-align: left; width: 100%;">Competencia</button>
+            <button class="marketing-tab" onclick="switchMarketingTab('rrss')" style="padding: 10px 16px; border: none; background: transparent; color: #64748b; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; text-align: left; width: 100%;">RRSS</button>
+            <button class="marketing-tab" onclick="switchMarketingTab('leads')" style="padding: 10px 16px; border: none; background: transparent; color: #64748b; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; text-align: left; width: 100%;">Leads</button>
+            <button class="marketing-tab" onclick="switchMarketingTab('diseno')" style="padding: 10px 16px; border: none; background: transparent; color: #64748b; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; text-align: left; width: 100%;">Diseño</button>
+            <button class="marketing-tab" onclick="switchMarketingTab('analytics')" style="padding: 10px 16px; border: none; background: transparent; color: #64748b; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; text-align: left; width: 100%;">Analíticas</button>
+          </div>
+
+          <!-- Contenido de Tabs -->
+          <div>
 
         <!-- Tab Equipo -->
         <div id="marketing-tab-equipo" class="marketing-tab-content">
@@ -2534,6 +2540,9 @@ body {
             </div>
           </div>
         </div>
+
+          </div> <!-- Fin contenedor de contenido -->
+        </div> <!-- Fin grid de 2 columnas -->
 
       </div>
 
