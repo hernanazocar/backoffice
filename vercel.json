@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "agentes-org",
+  "name": "backoffice",
   "builds": [
     {
       "src": "dashboard/**",
