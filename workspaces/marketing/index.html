@@ -183,7 +183,8 @@ h1 {
 
   <!-- Tabs -->
   <div class="tabs">
-    <button class="tab active" onclick="switchTab('posts')">📋 Posts Pendientes</button>
+    <button class="tab active" onclick="switchTab('equipo')">👥 Equipo</button>
+    <button class="tab" onclick="switchTab('posts')">📋 Posts Pendientes</button>
     <button class="tab" onclick="switchTab('published')">✅ Publicados</button>
     <button class="tab" onclick="switchTab('calendario')">📅 Calendario</button>
     <button class="tab" onclick="switchTab('analytics')">📊 Analíticas</button>
@@ -191,7 +192,145 @@ h1 {
   </div>
 
   <!-- Contenido de Tabs -->
-  <div id="tab-posts" class="tab-content active">
+
+  <!-- TAB EQUIPO -->
+  <div id="tab-equipo" class="tab-content active">
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px;">
+
+      <!-- Community Manager -->
+      <div style="background: white; border: 1px solid #e8eaed; border-radius: 12px; padding: 16px;">
+        <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
+          <div style="width: 40px; height: 40px; border-radius: 8px; background: #0f172a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 14px; font-weight: 700; margin-bottom: 2px;">Community Manager</div>
+            <div style="font-size: 11px; color: #6e7781; margin-bottom: 6px;">Agente IA</div>
+            <div style="display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: #e6f9f0; border-radius: 12px; font-size: 10px; font-weight: 600; color: #22c55e;">
+              <div style="width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: blink 2s ease-in-out infinite;"></div>
+              En línea
+            </div>
+          </div>
+        </div>
+        <div style="background: #f8fafc; border-radius: 8px; padding: 12px; margin-bottom: 8px;">
+          <div style="font-size: 11px; color: #6e7781; margin-bottom: 4px;">Actividad actual</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Creando contenido para redes sociales</div>
+        </div>
+        <div style="font-size: 11px; color: #6e7781;">
+          <strong>Última ejecución:</strong> Esperando inicio
+        </div>
+      </div>
+
+      <!-- Diseñador Gráfico -->
+      <div style="background: white; border: 1px solid #e8eaed; border-radius: 12px; padding: 16px;">
+        <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
+          <div style="width: 40px; height: 40px; border-radius: 8px; background: #0f172a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 14px; font-weight: 700; margin-bottom: 2px;">Diseñador Gráfico</div>
+            <div style="font-size: 11px; color: #6e7781; margin-bottom: 6px;">Agente IA</div>
+            <div style="display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: #e6f9f0; border-radius: 12px; font-size: 10px; font-weight: 600; color: #22c55e;">
+              <div style="width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: blink 2s ease-in-out infinite;"></div>
+              En línea
+            </div>
+          </div>
+        </div>
+        <div style="background: #f8fafc; border-radius: 8px; padding: 12px; margin-bottom: 8px;">
+          <div style="font-size: 11px; color: #6e7781; margin-bottom: 4px;">Actividad actual</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Generando piezas visuales con DALL-E</div>
+        </div>
+        <div style="font-size: 11px; color: #6e7781;">
+          <strong>Última ejecución:</strong> Esperando inicio
+        </div>
+      </div>
+
+      <!-- Paid Media Specialist -->
+      <div style="background: white; border: 1px solid #e8eaed; border-radius: 12px; padding: 16px;">
+        <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
+          <div style="width: 40px; height: 40px; border-radius: 8px; background: #0f172a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/>
+            </svg>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 14px; font-weight: 700; margin-bottom: 2px;">Paid Media Specialist</div>
+            <div style="font-size: 11px; color: #6e7781; margin-bottom: 6px;">Agente IA</div>
+            <div style="display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: #e6f9f0; border-radius: 12px; font-size: 10px; font-weight: 600; color: #22c55e;">
+              <div style="width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: blink 2s ease-in-out infinite;"></div>
+              En línea
+            </div>
+          </div>
+        </div>
+        <div style="background: #f8fafc; border-radius: 8px; padding: 12px; margin-bottom: 8px;">
+          <div style="font-size: 11px; color: #6e7781; margin-bottom: 4px;">Actividad actual</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Optimizando campañas publicitarias</div>
+        </div>
+        <div style="font-size: 11px; color: #6e7781;">
+          <strong>Última ejecución:</strong> Esperando inicio
+        </div>
+      </div>
+
+      <!-- Analista de Marketing -->
+      <div style="background: white; border: 1px solid #e8eaed; border-radius: 12px; padding: 16px;">
+        <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
+          <div style="width: 40px; height: 40px; border-radius: 8px; background: #0f172a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 14px; font-weight: 700; margin-bottom: 2px;">Analista de Marketing</div>
+            <div style="font-size: 11px; color: #6e7781; margin-bottom: 6px;">Agente IA</div>
+            <div style="display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: #e6f9f0; border-radius: 12px; font-size: 10px; font-weight: 600; color: #22c55e;">
+              <div style="width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: blink 2s ease-in-out infinite;"></div>
+              En línea
+            </div>
+          </div>
+        </div>
+        <div style="background: #f8fafc; border-radius: 8px; padding: 12px; margin-bottom: 8px;">
+          <div style="font-size: 11px; color: #6e7781; margin-bottom: 4px;">Actividad actual</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Analizando métricas y tendencias</div>
+        </div>
+        <div style="font-size: 11px; color: #6e7781;">
+          <strong>Última ejecución:</strong> Esperando inicio
+        </div>
+      </div>
+
+      <!-- Gerente de Marketing -->
+      <div style="background: white; border: 1px solid #e8eaed; border-radius: 12px; padding: 16px;">
+        <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
+          <div style="width: 40px; height: 40px; border-radius: 8px; background: linear-gradient(135deg, #ff6b35, #ec4899); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 6px rgba(255, 107, 53, 0.4);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/>
+            </svg>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 14px; font-weight: 700; margin-bottom: 2px;">Gerente de Marketing</div>
+            <div style="font-size: 11px; color: #6e7781; margin-bottom: 6px;">Agente IA • Supervisor</div>
+            <div style="display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: #e6f9f0; border-radius: 12px; font-size: 10px; font-weight: 600; color: #22c55e;">
+              <div style="width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: blink 2s ease-in-out infinite;"></div>
+              En línea
+            </div>
+          </div>
+        </div>
+        <div style="background: #f8fafc; border-radius: 8px; padding: 12px; margin-bottom: 8px;">
+          <div style="font-size: 11px; color: #6e7781; margin-bottom: 4px;">Actividad actual</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Supervisando equipo y generando reportes</div>
+        </div>
+        <div style="font-size: 11px; color: #6e7781;">
+          <strong>Última ejecución:</strong> Esperando inicio
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="tab-posts" class="tab-content">
     <!-- El módulo marketing-posts.js inyectará aquí -->
     <div id="posts-container" style="text-align: center; padding: 60px; color: #6e7781;">
       Cargando posts pendientes...
