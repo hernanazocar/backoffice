@@ -185,13 +185,13 @@ def execute_workflow():
 
         # Ejecutar workflow en background
         def run_workflow():
-            script_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'ejecutar_workflow.py')
+            script_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'ejecutar_marketing_simple.py')
             venv_python = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'venv', 'bin', 'python3')
 
             # Si existe el venv, usarlo
             python_cmd = venv_python if os.path.exists(venv_python) else 'python3'
 
-            subprocess.run([python_cmd, script_path, 'marketing'],
+            subprocess.run([python_cmd, script_path],
                           cwd=os.path.dirname(os.path.dirname(__file__)))
 
         # Iniciar en thread separado para no bloquear
