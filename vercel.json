@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "name": "agentes-org",
+  "builds": [
+    {
+      "src": "dashboard/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "workspaces/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/dashboard/$1"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/dashboard/index.html"
+    },
+    {
+      "source": "/workspaces/(.*)",
+      "destination": "/workspaces/$1"
+    }
+  ]
+}
