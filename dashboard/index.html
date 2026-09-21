@@ -1559,46 +1559,979 @@ body {
           </div>
         </div>
 
-        <!-- Otros tabs (simplificados) -->
+        <!-- TAB INVESTIGACIÓN DE MERCADO -->
         <div id="marketing-tab-mercado" class="marketing-tab-content" style="display: none;">
-          <div class="card">
-            <h3 style="margin-bottom: 16px;">Investigación de Mercado</h3>
-            <p style="color: var(--text-secondary);">Estudios, tendencias y segmentos de mercado</p>
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 12px;">
+
+            <!-- Estudios Activos -->
+            <div class="card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="font-size: 16px; font-weight: 700;">Estudios de Mercado Activos</h3>
+                <button style="padding: 6px 12px; background: #0f172a; color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">+ Nuevo Estudio</button>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                <!-- Estudio 1 -->
+                <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                  <div style="display: flex; justify-content: between; align-items: start; margin-bottom: 12px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 14px; font-weight: 700; margin-bottom: 4px;">Análisis de Competidores Q4 2026</div>
+                      <div style="font-size: 12px; color: var(--text-muted);">Iniciado: 15 Sep 2026</div>
+                    </div>
+                    <div style="padding: 4px 12px; background: #dcfce7; border-radius: 12px; font-size: 11px; font-weight: 600; color: var(--success);">En progreso</div>
+                  </div>
+                  <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Análisis profundo de 8 competidores principales en el mercado latinoamericano</div>
+                  <div style="display: flex; gap: 8px;">
+                    <button style="padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer;">Ver Resultados</button>
+                    <button style="padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer;">Descargar PDF</button>
+                  </div>
+                </div>
+
+                <!-- Estudio 2 -->
+                <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                  <div style="display: flex; justify-content: between; align-items: start; margin-bottom: 12px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 14px; font-weight: 700; margin-bottom: 4px;">Tendencias de Consumo 2026-2027</div>
+                      <div style="font-size: 12px; color: var(--text-muted);">Completado: 10 Sep 2026</div>
+                    </div>
+                    <div style="padding: 4px 12px; background: #e0e7ff; border-radius: 12px; font-size: 11px; font-weight: 600; color: var(--accent);">Completado</div>
+                  </div>
+                  <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Identificación de 12 tendencias emergentes en comportamiento de usuario</div>
+                  <div style="display: flex; gap: 8px;">
+                    <button style="padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer;">Ver Resultados</button>
+                    <button style="padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer;">Descargar PDF</button>
+                  </div>
+                </div>
+
+                <!-- Estudio 3 -->
+                <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                  <div style="display: flex; justify-content: between; align-items: start; margin-bottom: 12px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 14px; font-weight: 700; margin-bottom: 4px;">Segmentación de Audiencia</div>
+                      <div style="font-size: 12px; color: var(--text-muted);">Completado: 5 Sep 2026</div>
+                    </div>
+                    <div style="padding: 4px 12px; background: #e0e7ff; border-radius: 12px; font-size: 11px; font-weight: 600; color: var(--accent);">Completado</div>
+                  </div>
+                  <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">5 segmentos de cliente identificados con características y comportamientos</div>
+                  <div style="display: flex; gap: 8px;">
+                    <button style="padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer;">Ver Resultados</button>
+                    <button style="padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer;">Descargar PDF</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel Derecho: Resumen -->
+            <div>
+              <div class="card" style="margin-bottom: 12px;">
+                <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px;">Resumen</h4>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Estudios Activos</div>
+                    <div style="font-size: 24px; font-weight: 700;">1</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Completados (mes)</div>
+                    <div style="font-size: 24px; font-weight: 700;">2</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Tendencias Identificadas</div>
+                    <div style="font-size: 24px; font-weight: 700;">12</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px;">Próximos Estudios</h4>
+                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px;">
+                  <div style="padding: 8px; background: #f8fafc; border-radius: 6px;">
+                    <div style="font-weight: 600; margin-bottom: 2px;">Análisis de Pricing</div>
+                    <div style="color: var(--text-muted);">Planificado: Oct 2026</div>
+                  </div>
+                  <div style="padding: 8px; background: #f8fafc; border-radius: 6px;">
+                    <div style="font-weight: 600; margin-bottom: 2px;">Research de Producto</div>
+                    <div style="color: var(--text-muted);">Planificado: Nov 2026</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
+        <!-- TAB COMPETENCIA -->
         <div id="marketing-tab-competencia" class="marketing-tab-content" style="display: none;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+
+            <!-- Competidores Monitoreados -->
+            <div class="card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="font-size: 16px; font-weight: 700;">Competidores Monitoreados</h3>
+                <button style="padding: 6px 12px; background: #0f172a; color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">+ Agregar</button>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <!-- Competidor 1 -->
+                <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+                  <div style="width: 40px; height: 40px; border-radius: 8px; background: #e0e7ff; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--accent);">A</div>
+                  <div style="flex: 1;">
+                    <div style="font-size: 14px; font-weight: 700;">Competidor A</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">competidora.com</div>
+                  </div>
+                  <button style="padding: 4px 8px; background: white; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; cursor: pointer;">Ver análisis</button>
+                </div>
+
+                <!-- Competidor 2 -->
+                <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+                  <div style="width: 40px; height: 40px; border-radius: 8px; background: #dcfce7; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--success);">B</div>
+                  <div style="flex: 1;">
+                    <div style="font-size: 14px; font-weight: 700;">Competidor B</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">competidorb.io</div>
+                  </div>
+                  <button style="padding: 4px 8px; background: white; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; cursor: pointer;">Ver análisis</button>
+                </div>
+
+                <!-- Competidor 3 -->
+                <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+                  <div style="width: 40px; height: 40px; border-radius: 8px; background: #fef3c7; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--warning);">C</div>
+                  <div style="flex: 1;">
+                    <div style="font-size: 14px; font-weight: 700;">Competidor C</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">competidorc.app</div>
+                  </div>
+                  <button style="padding: 4px 8px; background: white; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; cursor: pointer;">Ver análisis</button>
+                </div>
+
+                <!-- Ver más -->
+                <div style="text-align: center; padding: 8px;">
+                  <button style="padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">Ver todos (8)</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Análisis de Precios -->
+            <div class="card">
+              <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px;">Análisis de Precios</h3>
+
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="padding: 12px; background: #f8fafc; border-radius: 8px;">
+                  <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Plan Básico</div>
+                  <div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">$49 - $89 USD/mes</div>
+                  <div style="font-size: 11px; color: var(--text-secondary);">Rango de mercado</div>
+                </div>
+
+                <div style="padding: 12px; background: #f8fafc; border-radius: 8px;">
+                  <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Plan Professional</div>
+                  <div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">$149 - $299 USD/mes</div>
+                  <div style="font-size: 11px; color: var(--text-secondary);">Rango de mercado</div>
+                </div>
+
+                <div style="padding: 12px; background: #f8fafc; border-radius: 8px;">
+                  <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Plan Enterprise</div>
+                  <div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">$499 - $999 USD/mes</div>
+                  <div style="font-size: 11px; color: var(--text-secondary);">Rango de mercado</div>
+                </div>
+
+                <button style="padding: 8px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">Ver análisis completo</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Actividad en RRSS de Competencia -->
           <div class="card">
-            <h3 style="margin-bottom: 16px;">Análisis de Competencia</h3>
-            <p style="color: var(--text-secondary);">Competidores, precios y actividad en RRSS</p>
+            <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px;">Actividad Reciente en RRSS</h3>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+              <div style="text-align: center; padding: 16px; background: #f8fafc; border-radius: 8px;">
+                <div style="font-size: 24px; font-weight: 700; margin-bottom: 4px;">24</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Posts hoy</div>
+                <div style="font-size: 11px; color: var(--success); margin-top: 4px;">+8% vs ayer</div>
+              </div>
+              <div style="text-align: center; padding: 16px; background: #f8fafc; border-radius: 8px;">
+                <div style="font-size: 24px; font-weight: 700; margin-bottom: 4px;">156K</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Engagement total</div>
+                <div style="font-size: 11px; color: var(--success); margin-top: 4px;">+12% vs semana</div>
+              </div>
+              <div style="text-align: center; padding: 16px; background: #f8fafc; border-radius: 8px;">
+                <div style="font-size: 24px; font-weight: 700; margin-bottom: 4px;">3</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Campañas nuevas</div>
+                <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Esta semana</div>
+              </div>
+            </div>
           </div>
         </div>
 
+        <!-- TAB REDES SOCIALES -->
         <div id="marketing-tab-rrss" class="marketing-tab-content" style="display: none;">
-          <div class="card">
-            <h3 style="margin-bottom: 16px;">Redes Sociales</h3>
-            <p style="color: var(--text-secondary);">Gestión de posts y contenido social</p>
+          <!-- Métricas Rápidas -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px;">
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Posts Pendientes</div>
+              <div style="font-size: 24px; font-weight: 700;">7</div>
+              <div style="font-size: 11px; color: var(--text-secondary);">Para aprobar</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Programados</div>
+              <div style="font-size: 24px; font-weight: 700;">12</div>
+              <div style="font-size: 11px; color: var(--text-secondary);">Próximos 7 días</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Publicados (mes)</div>
+              <div style="font-size: 24px; font-weight: 700;">28</div>
+              <div style="font-size: 11px; color: var(--success);">+15% vs mes anterior</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Engagement Rate</div>
+              <div style="font-size: 24px; font-weight: 700;">4.8%</div>
+              <div style="font-size: 11px; color: var(--success);">+0.6% vs mes anterior</div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px;">
+
+            <!-- Posts Pendientes de Aprobación -->
+            <div class="card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="font-size: 16px; font-weight: 700;">Posts Pendientes de Aprobación</h3>
+                <button style="padding: 6px 12px; background: #0f172a; color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">Ver todos</button>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                <!-- Post 1 -->
+                <div style="display: flex; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+                  <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; flex-shrink: 0;"></div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">Lanzamiento de producto Q4</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Descubre nuestra nueva línea de productos diseñada especialmente para...</div>
+                    <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                      <span style="padding: 2px 8px; background: #e0e7ff; border-radius: 4px; font-size: 10px; font-weight: 600; color: var(--accent);">Instagram</span>
+                      <span style="padding: 2px 8px; background: #e0e7ff; border-radius: 4px; font-size: 10px; font-weight: 600; color: var(--accent);">Facebook</span>
+                    </div>
+                    <div style="display: flex; gap: 6px;">
+                      <button style="padding: 4px 12px; background: var(--success); color: white; border: none; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer;">✓ Aprobar</button>
+                      <button style="padding: 4px 12px; background: white; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer;">Editar</button>
+                      <button style="padding: 4px 12px; background: white; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer;">✕ Rechazar</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Post 2 -->
+                <div style="display: flex; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+                  <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 8px; flex-shrink: 0;"></div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">Tips de productividad</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">5 formas de mejorar tu productividad usando nuestras herramientas...</div>
+                    <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                      <span style="padding: 2px 8px; background: #dcfce7; border-radius: 4px; font-size: 10px; font-weight: 600; color: var(--success);">LinkedIn</span>
+                    </div>
+                    <div style="display: flex; gap: 6px;">
+                      <button style="padding: 4px 12px; background: var(--success); color: white; border: none; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer;">✓ Aprobar</button>
+                      <button style="padding: 4px 12px; background: white; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer;">Editar</button>
+                      <button style="padding: 4px 12px; background: white; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer;">✕ Rechazar</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Post 3 -->
+                <div style="display: flex; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+                  <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 8px; flex-shrink: 0;"></div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">Testimonial de cliente</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">"Gracias a esta herramienta logramos aumentar nuestras ventas en 40%"...</div>
+                    <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                      <span style="padding: 2px 8px; background: #e0e7ff; border-radius: 4px; font-size: 10px; font-weight: 600; color: var(--accent);">Instagram</span>
+                      <span style="padding: 2px 8px; background: #dcfce7; border-radius: 4px; font-size: 10px; font-weight: 600; color: var(--success);">LinkedIn</span>
+                    </div>
+                    <div style="display: flex; gap: 6px;">
+                      <button style="padding: 4px 12px; background: var(--success); color: white; border: none; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer;">✓ Aprobar</button>
+                      <button style="padding: 4px 12px; background: white; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer;">Editar</button>
+                      <button style="padding: 4px 12px; background: white; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer;">✕ Rechazar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel Derecho -->
+            <div>
+              <!-- Calendario de Publicaciones -->
+              <div class="card" style="margin-bottom: 12px;">
+                <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px;">Próximas Publicaciones</h4>
+                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px;">
+                  <div style="padding: 8px; background: #f8fafc; border-radius: 6px;">
+                    <div style="font-weight: 600; margin-bottom: 2px;">Hoy, 15:00</div>
+                    <div style="color: var(--text-muted); font-size: 11px;">Post de producto</div>
+                  </div>
+                  <div style="padding: 8px; background: #f8fafc; border-radius: 6px;">
+                    <div style="font-weight: 600; margin-bottom: 2px;">Mañana, 10:00</div>
+                    <div style="color: var(--text-muted); font-size: 11px;">Story interactiva</div>
+                  </div>
+                  <div style="padding: 8px; background: #f8fafc; border-radius: 6px;">
+                    <div style="font-weight: 600; margin-bottom: 2px;">Mié 23, 18:00</div>
+                    <div style="color: var(--text-muted); font-size: 11px;">Reel educativo</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Métricas por Plataforma -->
+              <div class="card">
+                <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px;">Por Plataforma</h4>
+                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px;">
+                  <div style="display: flex; justify-content: space-between; padding: 8px; background: #f8fafc; border-radius: 6px;">
+                    <span style="font-weight: 600;">Instagram</span>
+                    <span style="color: var(--text-muted);">12 posts</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 8px; background: #f8fafc; border-radius: 6px;">
+                    <span style="font-weight: 600;">Facebook</span>
+                    <span style="color: var(--text-muted);">8 posts</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 8px; background: #f8fafc; border-radius: 6px;">
+                    <span style="font-weight: 600;">LinkedIn</span>
+                    <span style="color: var(--text-muted);">8 posts</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
+        <!-- TAB LEAD GENERATION -->
         <div id="marketing-tab-leads" class="marketing-tab-content" style="display: none;">
-          <div class="card">
-            <h3 style="margin-bottom: 16px;">Lead Generation</h3>
-            <p style="color: var(--text-secondary);">Campañas de captación y conversiones</p>
+          <!-- KPIs Lead Generation -->
+          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 12px;">
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Campañas Activas</div>
+              <div style="font-size: 24px; font-weight: 700;">4</div>
+              <div style="font-size: 11px; color: var(--success);">2 nuevas esta semana</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Leads (mes)</div>
+              <div style="font-size: 24px; font-weight: 700;">347</div>
+              <div style="font-size: 11px; color: var(--success);">+23% vs mes anterior</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Tasa Conversión</div>
+              <div style="font-size: 24px; font-weight: 700;">4.2%</div>
+              <div style="font-size: 11px; color: var(--success);">+0.8%</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Costo por Lead</div>
+              <div style="font-size: 24px; font-weight: 700;">$12</div>
+              <div style="font-size: 11px; color: var(--success);">-15% optimización</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">ROI Campañas</div>
+              <div style="font-size: 24px; font-weight: 700;">3.8x</div>
+              <div style="font-size: 11px; color: var(--success);">+0.4x vs mes anterior</div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px;">
+
+            <!-- Campañas Activas -->
+            <div class="card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="font-size: 16px; font-weight: 700;">Campañas de Captación</h3>
+                <div style="display: flex; gap: 8px;">
+                  <button style="padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">Filtrar</button>
+                  <button style="padding: 6px 12px; background: #0f172a; color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">+ Nueva Campaña</button>
+                </div>
+              </div>
+
+              <!-- Tabla de Campañas -->
+              <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                  <thead>
+                    <tr style="border-bottom: 2px solid var(--border);">
+                      <th style="text-align: left; padding: 12px 8px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Campaña</th>
+                      <th style="text-align: left; padding: 12px 8px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Estado</th>
+                      <th style="text-align: center; padding: 12px 8px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Leads</th>
+                      <th style="text-align: center; padding: 12px 8px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Conv.</th>
+                      <th style="text-align: center; padding: 12px 8px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Inversión</th>
+                      <th style="text-align: center; padding: 12px 8px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">ROI</th>
+                      <th style="text-align: right; padding: 12px 8px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Campaña 1 -->
+                    <tr style="border-bottom: 1px solid var(--border);">
+                      <td style="padding: 12px 8px;">
+                        <div style="font-size: 13px; font-weight: 600; margin-bottom: 2px;">Landing Page Producto</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">Google Ads + Meta</div>
+                      </td>
+                      <td style="padding: 12px 8px;">
+                        <span style="display: inline-block; padding: 4px 8px; background: #dcfce7; border-radius: 12px; font-size: 10px; font-weight: 600; color: var(--success);">Activa</span>
+                      </td>
+                      <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">156</td>
+                      <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">5.2%</td>
+                      <td style="text-align: center; padding: 12px 8px; font-size: 13px;">$1,840</td>
+                      <td style="text-align: center; padding: 12px 8px;">
+                        <span style="font-size: 14px; font-weight: 700; color: var(--success);">4.2x</span>
+                      </td>
+                      <td style="text-align: right; padding: 12px 8px;">
+                        <button style="padding: 4px 8px; background: white; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; cursor: pointer;">Ver</button>
+                      </td>
+                    </tr>
+
+                    <!-- Campaña 2 -->
+                    <tr style="border-bottom: 1px solid var(--border);">
+                      <td style="padding: 12px 8px;">
+                        <div style="font-size: 13px; font-weight: 600; margin-bottom: 2px;">Webinar Gratuito</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">Email + LinkedIn</div>
+                      </td>
+                      <td style="padding: 12px 8px;">
+                        <span style="display: inline-block; padding: 4px 8px; background: #dcfce7; border-radius: 12px; font-size: 10px; font-weight: 600; color: var(--success);">Activa</span>
+                      </td>
+                      <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">89</td>
+                      <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">6.8%</td>
+                      <td style="text-align: center; padding: 12px 8px; font-size: 13px;">$980</td>
+                      <td style="text-align: center; padding: 12px 8px;">
+                        <span style="font-size: 14px; font-weight: 700; color: var(--success);">5.1x</span>
+                      </td>
+                      <td style="text-align: right; padding: 12px 8px;">
+                        <button style="padding: 4px 8px; background: white; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; cursor: pointer;">Ver</button>
+                      </td>
+                    </tr>
+
+                    <!-- Campaña 3 -->
+                    <tr style="border-bottom: 1px solid var(--border);">
+                      <td style="padding: 12px 8px;">
+                        <div style="font-size: 13px; font-weight: 600; margin-bottom: 2px;">Trial Gratuito 14 días</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">Orgánico + Paid Social</div>
+                      </td>
+                      <td style="padding: 12px 8px;">
+                        <span style="display: inline-block; padding: 4px 8px; background: #dcfce7; border-radius: 12px; font-size: 10px; font-weight: 600; color: var(--success);">Activa</span>
+                      </td>
+                      <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">72</td>
+                      <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">3.4%</td>
+                      <td style="text-align: center; padding: 12px 8px; font-size: 13px;">$720</td>
+                      <td style="text-align: center; padding: 12px 8px;">
+                        <span style="font-size: 14px; font-weight: 700; color: var(--success);">3.2x</span>
+                      </td>
+                      <td style="text-align: right; padding: 12px 8px;">
+                        <button style="padding: 4px 8px; background: white; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; cursor: pointer;">Ver</button>
+                      </td>
+                    </tr>
+
+                    <!-- Campaña 4 -->
+                    <tr style="border-bottom: 1px solid var(--border);">
+                      <td style="padding: 12px 8px;">
+                        <div style="font-size: 13px; font-weight: 600; margin-bottom: 2px;">Ebook - Guía Completa</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">Content Marketing</div>
+                      </td>
+                      <td style="padding: 12px 8px;">
+                        <span style="display: inline-block; padding: 4px 8px; background: #e0e7ff; border-radius: 12px; font-size: 10px; font-weight: 600; color: var(--accent);">Pausada</span>
+                      </td>
+                      <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">30</td>
+                      <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">2.1%</td>
+                      <td style="text-align: center; padding: 12px 8px; font-size: 13px;">$150</td>
+                      <td style="text-align: center; padding: 12px 8px;">
+                        <span style="font-size: 14px; font-weight: 700;">2.4x</span>
+                      </td>
+                      <td style="text-align: right; padding: 12px 8px;">
+                        <button style="padding: 4px 8px; background: white; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; cursor: pointer;">Ver</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Panel Derecho -->
+            <div>
+              <!-- Funnel de Conversión -->
+              <div class="card" style="margin-bottom: 12px;">
+                <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 16px;">Funnel de Conversión</h4>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <!-- Visitas -->
+                  <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                      <span style="font-size: 12px; font-weight: 600;">Visitas</span>
+                      <span style="font-size: 12px; font-weight: 700;">8,234</span>
+                    </div>
+                    <div style="height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden;">
+                      <div style="width: 100%; height: 100%; background: var(--accent);"></div>
+                    </div>
+                  </div>
+
+                  <!-- Leads -->
+                  <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                      <span style="font-size: 12px; font-weight: 600;">Leads</span>
+                      <span style="font-size: 12px; font-weight: 700;">347</span>
+                    </div>
+                    <div style="height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden;">
+                      <div style="width: 42%; height: 100%; background: var(--info);"></div>
+                    </div>
+                    <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">4.2% conversión</div>
+                  </div>
+
+                  <!-- MQL -->
+                  <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                      <span style="font-size: 12px; font-weight: 600;">MQL</span>
+                      <span style="font-size: 12px; font-weight: 700;">156</span>
+                    </div>
+                    <div style="height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden;">
+                      <div style="width: 19%; height: 100%; background: var(--warning);"></div>
+                    </div>
+                    <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">45% calificación</div>
+                  </div>
+
+                  <!-- SQL -->
+                  <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                      <span style="font-size: 12px; font-weight: 600;">SQL</span>
+                      <span style="font-size: 12px; font-weight: 700;">67</span>
+                    </div>
+                    <div style="height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden;">
+                      <div style="width: 8%; height: 100%; background: var(--success);"></div>
+                    </div>
+                    <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">43% avance</div>
+                  </div>
+
+                  <!-- Clientes -->
+                  <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                      <span style="font-size: 12px; font-weight: 600;">Clientes</span>
+                      <span style="font-size: 12px; font-weight: 700;">23</span>
+                    </div>
+                    <div style="height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden;">
+                      <div style="width: 3%; height: 100%; background: #059669;"></div>
+                    </div>
+                    <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">34% cierre</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Canales Top -->
+              <div class="card">
+                <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px;">Top Canales</h4>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <div style="display: flex; justify-content: space-between; padding: 8px; background: #f8fafc; border-radius: 6px;">
+                    <span style="font-size: 12px; font-weight: 600;">Google Ads</span>
+                    <span style="font-size: 12px; font-weight: 700; color: var(--success);">156</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 8px; background: #f8fafc; border-radius: 6px;">
+                    <span style="font-size: 12px; font-weight: 600;">Meta Ads</span>
+                    <span style="font-size: 12px; font-weight: 700; color: var(--success);">89</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 8px; background: #f8fafc; border-radius: 6px;">
+                    <span style="font-size: 12px; font-weight: 600;">LinkedIn</span>
+                    <span style="font-size: 12px; font-weight: 700; color: var(--success);">72</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 8px; background: #f8fafc; border-radius: 6px;">
+                    <span style="font-size: 12px; font-weight: 600;">Orgánico</span>
+                    <span style="font-size: 12px; font-weight: 700; color: var(--success);">30</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
+        <!-- TAB DISEÑO & CONTENIDO -->
         <div id="marketing-tab-diseno" class="marketing-tab-content" style="display: none;">
+          <!-- KPIs Diseño -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px;">
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Piezas Gráficas</div>
+              <div style="font-size: 24px; font-weight: 700;">28</div>
+              <div style="font-size: 11px; color: var(--text-secondary);">Este mes</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Videos Producidos</div>
+              <div style="font-size: 24px; font-weight: 700;">6</div>
+              <div style="font-size: 11px; color: var(--success);">+2 vs mes anterior</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Assets de Marca</div>
+              <div style="font-size: 24px; font-weight: 700;">12</div>
+              <div style="font-size: 11px; color: var(--text-secondary);">Actualizados</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">En Producción</div>
+              <div style="font-size: 24px; font-weight: 700;">5</div>
+              <div style="font-size: 11px; color: var(--text-secondary);">Piezas activas</div>
+            </div>
+          </div>
+
+          <!-- Tabs Secundarios -->
+          <div style="display: flex; gap: 8px; margin-bottom: 12px; background: white; padding: 8px; border-radius: 12px;">
+            <button onclick="event.stopPropagation(); alert('Filtro: Todas')" style="padding: 6px 16px; background: #0f172a; color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">Todas</button>
+            <button onclick="event.stopPropagation(); alert('Filtro: Posts RRSS')" style="padding: 6px 16px; background: transparent; color: #64748b; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">Posts RRSS</button>
+            <button onclick="event.stopPropagation(); alert('Filtro: Banners')" style="padding: 6px 16px; background: transparent; color: #64748b; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">Banners</button>
+            <button onclick="event.stopPropagation(); alert('Filtro: Videos')" style="padding: 6px 16px; background: transparent; color: #64748b; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">Videos</button>
+            <button onclick="event.stopPropagation(); alert('Filtro: Branding')" style="padding: 6px 16px; background: transparent; color: #64748b; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">Branding</button>
+          </div>
+
+          <!-- Galería de Diseños -->
           <div class="card">
-            <h3 style="margin-bottom: 16px;">Diseño & Contenido</h3>
-            <p style="color: var(--text-secondary);">Piezas gráficas, videos y branding</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <h3 style="font-size: 16px; font-weight: 700;">Galería de Contenido</h3>
+              <div style="display: flex; gap: 8px;">
+                <button style="padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;">
+                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                  </svg>
+                  Buscar
+                </button>
+                <button style="padding: 6px 12px; background: #0f172a; color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">+ Crear Pieza</button>
+              </div>
+            </div>
+
+            <!-- Grid de Diseños -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+
+              <!-- Pieza 1 -->
+              <div style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="aspect-ratio: 1/1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative;">
+                  <div style="position: absolute; top: 8px; right: 8px; padding: 4px 8px; background: rgba(0,0,0,0.7); border-radius: 4px; font-size: 10px; font-weight: 600; color: white;">POST</div>
+                </div>
+                <div style="padding: 12px;">
+                  <div style="font-size: 12px; font-weight: 600; margin-bottom: 4px;">Lanzamiento Q4</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">Instagram • 1080x1080</div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Hace 2 días</div>
+                </div>
+              </div>
+
+              <!-- Pieza 2 -->
+              <div style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="aspect-ratio: 1/1; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); position: relative;">
+                  <div style="position: absolute; top: 8px; right: 8px; padding: 4px 8px; background: rgba(0,0,0,0.7); border-radius: 4px; font-size: 10px; font-weight: 600; color: white;">POST</div>
+                </div>
+                <div style="padding: 12px;">
+                  <div style="font-size: 12px; font-weight: 600; margin-bottom: 4px;">Tips Productividad</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">LinkedIn • 1200x627</div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Hace 3 días</div>
+                </div>
+              </div>
+
+              <!-- Pieza 3 -->
+              <div style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="aspect-ratio: 1/1; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); position: relative;">
+                  <div style="position: absolute; top: 8px; right: 8px; padding: 4px 8px; background: rgba(0,0,0,0.7); border-radius: 4px; font-size: 10px; font-weight: 600; color: white;">BANNER</div>
+                </div>
+                <div style="padding: 12px;">
+                  <div style="font-size: 12px; font-weight: 600; margin-bottom: 4px;">Banner Promo</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">Web • 1920x400</div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Hace 4 días</div>
+                </div>
+              </div>
+
+              <!-- Pieza 4 -->
+              <div style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="aspect-ratio: 1/1; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); position: relative;">
+                  <div style="position: absolute; top: 8px; right: 8px; padding: 4px 8px; background: rgba(0,0,0,0.7); border-radius: 4px; font-size: 10px; font-weight: 600; color: white;">VIDEO</div>
+                </div>
+                <div style="padding: 12px;">
+                  <div style="font-size: 12px; font-weight: 600; margin-bottom: 4px;">Tutorial Producto</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">YouTube • 1920x1080</div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Hace 5 días</div>
+                </div>
+              </div>
+
+              <!-- Pieza 5 -->
+              <div style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="aspect-ratio: 1/1; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); position: relative;">
+                  <div style="position: absolute; top: 8px; right: 8px; padding: 4px 8px; background: rgba(0,0,0,0.7); border-radius: 4px; font-size: 10px; font-weight: 600; color: white;">STORY</div>
+                </div>
+                <div style="padding: 12px;">
+                  <div style="font-size: 12px; font-weight: 600; margin-bottom: 4px;">Story Interactiva</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">Instagram • 1080x1920</div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Hace 1 semana</div>
+                </div>
+              </div>
+
+              <!-- Pieza 6 -->
+              <div style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="aspect-ratio: 1/1; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); position: relative;">
+                  <div style="position: absolute; top: 8px; right: 8px; padding: 4px 8px; background: rgba(0,0,0,0.7); border-radius: 4px; font-size: 10px; font-weight: 600; color: white;">POST</div>
+                </div>
+                <div style="padding: 12px;">
+                  <div style="font-size: 12px; font-weight: 600; margin-bottom: 4px;">Testimonial Cliente</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">Facebook • 1200x630</div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Hace 1 semana</div>
+                </div>
+              </div>
+
+              <!-- Pieza 7 -->
+              <div style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="aspect-ratio: 1/1; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); position: relative;">
+                  <div style="position: absolute; top: 8px; right: 8px; padding: 4px 8px; background: rgba(0,0,0,0.7); border-radius: 4px; font-size: 10px; font-weight: 600; color: white;">REEL</div>
+                </div>
+                <div style="padding: 12px;">
+                  <div style="font-size: 12px; font-weight: 600; margin-bottom: 4px;">Reel Educativo</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">Instagram • 1080x1920</div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Hace 1 semana</div>
+                </div>
+              </div>
+
+              <!-- Pieza 8 -->
+              <div style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="aspect-ratio: 1/1; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); position: relative;">
+                  <div style="position: absolute; top: 8px; right: 8px; padding: 4px 8px; background: rgba(0,0,0,0.7); border-radius: 4px; font-size: 10px; font-weight: 600; color: white;">BRAND</div>
+                </div>
+                <div style="padding: 12px;">
+                  <div style="font-size: 12px; font-weight: 600; margin-bottom: 4px;">Logo Variante</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">Branding • SVG</div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Hace 2 semanas</div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Paginación -->
+            <div style="display: flex; justify-content: center; gap: 8px; margin-top: 20px;">
+              <button style="padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; cursor: pointer;">← Anterior</button>
+              <button style="padding: 6px 12px; background: #0f172a; color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: 600;">1</button>
+              <button style="padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; cursor: pointer;">2</button>
+              <button style="padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; cursor: pointer;">3</button>
+              <button style="padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; cursor: pointer;">Siguiente →</button>
+            </div>
           </div>
         </div>
 
+        <!-- TAB ANALÍTICAS -->
         <div id="marketing-tab-analytics" class="marketing-tab-content" style="display: none;">
+          <!-- Filtros y Período -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <div style="display: flex; gap: 8px;">
+              <button style="padding: 6px 16px; background: #0f172a; color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">Últimos 30 días</button>
+              <button style="padding: 6px 16px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">Últimos 90 días</button>
+              <button style="padding: 6px 16px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">Este año</button>
+            </div>
+            <button style="padding: 6px 16px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Exportar PDF
+            </button>
+          </div>
+
+          <!-- KPIs Principales -->
+          <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 12px;">
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">ROI Total</div>
+              <div style="font-size: 24px; font-weight: 700;">3.2x</div>
+              <div style="font-size: 11px; color: var(--success);">+18%</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Alcance</div>
+              <div style="font-size: 24px; font-weight: 700;">124K</div>
+              <div style="font-size: 11px; color: var(--success);">+12%</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Engagement</div>
+              <div style="font-size: 24px; font-weight: 700;">4.8%</div>
+              <div style="font-size: 11px; color: var(--success);">+0.6%</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Leads</div>
+              <div style="font-size: 24px; font-weight: 700;">347</div>
+              <div style="font-size: 11px; color: var(--success);">+23%</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Conversión</div>
+              <div style="font-size: 24px; font-weight: 700;">4.2%</div>
+              <div style="font-size: 11px; color: var(--success);">+0.8%</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Inversión</div>
+              <div style="font-size: 24px; font-weight: 700;">$4.2K</div>
+              <div style="font-size: 11px; color: var(--text-secondary);">Este mes</div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 12px;">
+
+            <!-- Gráfico de Evolución -->
+            <div class="card">
+              <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px;">Evolución de Métricas</h3>
+              <!-- Simulación de gráfico con barras CSS -->
+              <div style="display: flex; align-items: flex-end; gap: 8px; height: 200px; padding: 20px 0;">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                  <div style="width: 100%; background: var(--accent); border-radius: 4px 4px 0 0; height: 45%;"></div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 8px;">Sem 1</div>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                  <div style="width: 100%; background: var(--accent); border-radius: 4px 4px 0 0; height: 52%;"></div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 8px;">Sem 2</div>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                  <div style="width: 100%; background: var(--accent); border-radius: 4px 4px 0 0; height: 68%;"></div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 8px;">Sem 3</div>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                  <div style="width: 100%; background: var(--success); border-radius: 4px 4px 0 0; height: 85%;"></div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 8px;">Sem 4</div>
+                </div>
+              </div>
+              <div style="display: flex; justify-content: center; gap: 16px; margin-top: 16px;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <div style="width: 12px; height: 12px; background: var(--accent); border-radius: 2px;"></div>
+                  <span style="font-size: 11px; color: var(--text-muted);">Alcance</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <div style="width: 12px; height: 12px; background: var(--success); border-radius: 2px;"></div>
+                  <span style="font-size: 11px; color: var(--text-muted);">Engagement</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Performance por Canal -->
+            <div class="card">
+              <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px;">Performance por Canal</h3>
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                <!-- Instagram -->
+                <div>
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span style="font-size: 12px; font-weight: 600;">Instagram</span>
+                    <span style="font-size: 12px; font-weight: 700;">45%</span>
+                  </div>
+                  <div style="height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 45%; height: 100%; background: linear-gradient(90deg, #667eea, #764ba2);"></div>
+                  </div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">56K alcance • 5.2% engagement</div>
+                </div>
+
+                <!-- LinkedIn -->
+                <div>
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span style="font-size: 12px; font-weight: 600;">LinkedIn</span>
+                    <span style="font-size: 12px; font-weight: 700;">30%</span>
+                  </div>
+                  <div style="height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 30%; height: 100%; background: linear-gradient(90deg, #0891b2, #0e7490);"></div>
+                  </div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">37K alcance • 4.8% engagement</div>
+                </div>
+
+                <!-- Facebook -->
+                <div>
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span style="font-size: 12px; font-weight: 600;">Facebook</span>
+                    <span style="font-size: 12px; font-weight: 700;">18%</span>
+                  </div>
+                  <div style="height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 18%; height: 100%; background: linear-gradient(90deg, #4facfe, #00f2fe);"></div>
+                  </div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">22K alcance • 3.9% engagement</div>
+                </div>
+
+                <!-- Otros -->
+                <div>
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span style="font-size: 12px; font-weight: 600;">Otros</span>
+                    <span style="font-size: 12px; font-weight: 700;">7%</span>
+                  </div>
+                  <div style="height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 7%; height: 100%; background: linear-gradient(90deg, #94a3b8, #64748b);"></div>
+                  </div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">9K alcance • 2.1% engagement</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Tabla de Contenido Top -->
           <div class="card">
-            <h3 style="margin-bottom: 16px;">Analíticas de Marketing</h3>
-            <p style="color: var(--text-secondary);">Métricas y reportes generales</p>
+            <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px;">Contenido con Mejor Performance</h3>
+            <div style="overflow-x: auto;">
+              <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                  <tr style="border-bottom: 2px solid var(--border);">
+                    <th style="text-align: left; padding: 12px 8px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Contenido</th>
+                    <th style="text-align: center; padding: 12px 8px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Tipo</th>
+                    <th style="text-align: center; padding: 12px 8px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Canal</th>
+                    <th style="text-align: center; padding: 12px 8px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Alcance</th>
+                    <th style="text-align: center; padding: 12px 8px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Engagement</th>
+                    <th style="text-align: center; padding: 12px 8px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Conversiones</th>
+                    <th style="text-align: center; padding: 12px 8px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Performance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 12px 8px;">
+                      <div style="font-size: 13px; font-weight: 600;">Tutorial Producto - Video</div>
+                      <div style="font-size: 11px; color: var(--text-muted);">Publicado 18 Sep</div>
+                    </td>
+                    <td style="text-align: center; padding: 12px 8px;">
+                      <span style="padding: 4px 8px; background: #fef3c7; border-radius: 4px; font-size: 10px; font-weight: 600;">Video</span>
+                    </td>
+                    <td style="text-align: center; padding: 12px 8px;">
+                      <span style="padding: 4px 8px; background: #e0e7ff; border-radius: 4px; font-size: 10px; font-weight: 600;">Instagram</span>
+                    </td>
+                    <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">18.5K</td>
+                    <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">8.2%</td>
+                    <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">47</td>
+                    <td style="text-align: center; padding: 12px 8px;">
+                      <span style="font-size: 14px; font-weight: 700; color: var(--success);">Excelente</span>
+                    </td>
+                  </tr>
+
+                  <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 12px 8px;">
+                      <div style="font-size: 13px; font-weight: 600;">Testimonial Cliente - Post</div>
+                      <div style="font-size: 11px; color: var(--text-muted);">Publicado 16 Sep</div>
+                    </td>
+                    <td style="text-align: center; padding: 12px 8px;">
+                      <span style="padding: 4px 8px; background: #dcfce7; border-radius: 4px; font-size: 10px; font-weight: 600;">Post</span>
+                    </td>
+                    <td style="text-align: center; padding: 12px 8px;">
+                      <span style="padding: 4px 8px; background: #dbeafe; border-radius: 4px; font-size: 10px; font-weight: 600;">LinkedIn</span>
+                    </td>
+                    <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">12.3K</td>
+                    <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">6.4%</td>
+                    <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">34</td>
+                    <td style="text-align: center; padding: 12px 8px;">
+                      <span style="font-size: 14px; font-weight: 700; color: var(--success);">Muy Bueno</span>
+                    </td>
+                  </tr>
+
+                  <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 12px 8px;">
+                      <div style="font-size: 13px; font-weight: 600;">Tips Productividad - Carrusel</div>
+                      <div style="font-size: 11px; color: var(--text-muted);">Publicado 14 Sep</div>
+                    </td>
+                    <td style="text-align: center; padding: 12px 8px;">
+                      <span style="padding: 4px 8px; background: #dcfce7; border-radius: 4px; font-size: 10px; font-weight: 600;">Carrusel</span>
+                    </td>
+                    <td style="text-align: center; padding: 12px 8px;">
+                      <span style="padding: 4px 8px; background: #e0e7ff; border-radius: 4px; font-size: 10px; font-weight: 600;">Instagram</span>
+                    </td>
+                    <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">9.8K</td>
+                    <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">5.7%</td>
+                    <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">28</td>
+                    <td style="text-align: center; padding: 12px 8px;">
+                      <span style="font-size: 14px; font-weight: 700; color: var(--info);">Bueno</span>
+                    </td>
+                  </tr>
+
+                  <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 12px 8px;">
+                      <div style="font-size: 13px; font-weight: 600;">Lanzamiento Q4 - Campaña</div>
+                      <div style="font-size: 11px; color: var(--text-muted);">Publicado 12 Sep</div>
+                    </td>
+                    <td style="text-align: center; padding: 12px 8px;">
+                      <span style="padding: 4px 8px; background: #fecaca; border-radius: 4px; font-size: 10px; font-weight: 600;">Campaña</span>
+                    </td>
+                    <td style="text-align: center; padding: 12px 8px;">
+                      <span style="padding: 4px 8px; background: #dbeafe; border-radius: 4px; font-size: 10px; font-weight: 600;">Multi</span>
+                    </td>
+                    <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">15.2K</td>
+                    <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">4.9%</td>
+                    <td style="text-align: center; padding: 12px 8px; font-size: 14px; font-weight: 700;">52</td>
+                    <td style="text-align: center; padding: 12px 8px;">
+                      <span style="font-size: 14px; font-weight: 700; color: var(--success);">Excelente</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
