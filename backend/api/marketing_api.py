@@ -176,6 +176,43 @@ def get_status():
         }), 500
 
 
+@app.route('/api/marketing/execute-workflow', methods=['POST'])
+def execute_workflow():
+    """Ejecuta el workflow completo de marketing (todos los agentes)"""
+    try:
+        import subprocess
+        import threading
+
+        # Ejecutar workflow en background
+        def run_workflow():
+            script_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'ejecutar_workflow.py')
+            venv_python = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'venv', 'bin', 'python3')
+
+            # Si existe el venv, usarlo
+            python_cmd = venv_python if os.path.exists(venv_python) else 'python3'
+
+            subprocess.run([python_cmd, script_path, 'marketing'],
+                          cwd=os.path.dirname(os.path.dirname(__file__)))
+
+        # Iniciar en thread separado para no bloquear
+        thread = threading.Thread(target=run_workflow)
+        thread.daemon = True
+        thread.start()
+
+        return jsonify({
+            'success': True,
+            'message': 'Workflow de marketing iniciado',
+            'status': 'running',
+            'estimated_time': '2-3 minutos'
+        })
+
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
 if __name__ == '__main__':
     print("🚀 Marketing API iniciada")
     print("📍 Endpoints disponibles:")
@@ -187,6 +224,7 @@ if __name__ == '__main__':
     print("   POST /api/marketing/posts/create")
     print("   GET  /api/marketing/posts/<id>/analytics")
     print("   GET  /api/marketing/status")
+    print("   POST /api/marketing/execute-workflow  ← NUEVO: Ejecutar equipo")
     print("\n🌐 Corriendo en http://localhost:5000")
 
     app.run(debug=True, port=5000)

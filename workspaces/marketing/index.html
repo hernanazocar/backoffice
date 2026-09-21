@@ -139,11 +139,14 @@ h1 {
 
 <div class="header">
   <div class="header-left">
-    <a href="../index.html" class="back-btn">← Espacios de Trabajo</a>
+    <a href="/workspaces/index.html" class="back-btn">← Espacios de Trabajo</a>
     <span class="area-badge">📢 Marketing</span>
     <h1>Espacio de Trabajo</h1>
   </div>
-  <div>
+  <div style="display: flex; gap: 8px;">
+    <button onclick="executeWorkflow()" id="execute-btn" style="padding: 8px 16px; background: linear-gradient(135deg, #ff6b35, #ec4899); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
+      ▶️ Ejecutar Equipo
+    </button>
     <button onclick="location.reload()" style="padding: 8px 16px; background: #f1f5f9; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
       🔄 Actualizar
     </button>
@@ -259,6 +262,73 @@ loadStats();
 
 // Auto-refresh cada 30 segundos
 setInterval(loadStats, 30000);
+
+// Ejecutar workflow de marketing
+async function executeWorkflow() {
+  const btn = document.getElementById('execute-btn');
+  const originalText = btn.innerHTML;
+
+  try {
+    // Deshabilitar botón y mostrar loading
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Ejecutando...';
+    btn.style.opacity = '0.7';
+    btn.style.cursor = 'wait';
+
+    // Llamar a la API
+    const response = await fetch('http://localhost:5000/api/marketing/execute-workflow', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      // Mostrar notificación de éxito
+      btn.innerHTML = '✅ Ejecutando...';
+
+      // Mostrar mensaje
+      alert(`✅ Equipo de Marketing iniciado!\n\n` +
+            `Los agentes están trabajando:\n` +
+            `• Community Manager\n` +
+            `• Diseñador Gráfico\n` +
+            `• Analista de Marketing\n` +
+            `• Paid Media Specialist\n` +
+            `• Gerente de Marketing\n\n` +
+            `Tiempo estimado: ${data.estimated_time}\n\n` +
+            `Refresca la página en unos minutos para ver los posts generados.`);
+
+      // Restaurar botón después de 3 segundos
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+      }, 3000);
+
+    } else {
+      throw new Error(data.error || 'Error desconocido');
+    }
+
+  } catch (error) {
+    console.error('Error ejecutando workflow:', error);
+
+    // Mostrar error
+    alert(`❌ Error al ejecutar el equipo:\n\n${error.message}\n\n` +
+          `Verifica que:\n` +
+          `1. La API esté corriendo (./start_marketing_api.sh)\n` +
+          `2. Tengas las API keys configuradas en .env\n` +
+          `3. El entorno virtual esté activado`);
+
+    // Restaurar botón
+    btn.disabled = false;
+    btn.innerHTML = originalText;
+    btn.style.opacity = '1';
+    btn.style.cursor = 'pointer';
+  }
+}
 </script>
 
 <!-- Módulo de Posts de Marketing -->
