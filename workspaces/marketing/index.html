@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing - Espacio de Trabajo</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.header {
+  background: white;
+  padding: 20px 32px;
+  border-bottom: 1px solid #e8eaed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.back-btn {
+  padding: 8px 16px;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #1a1a1a;
+}
+
+.back-btn:hover {
+  background: #e2e8f0;
+}
+
+.area-badge {
+  background: linear-gradient(135deg, #ff6b35, #ec4899);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 32px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #6e7781;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.stat-change {
+  font-size: 12px;
+  font-weight: 600;
+  color: #22c55e;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  background: white;
+  padding: 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.tab {
+  padding: 12px 24px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6e7781;
+  transition: all 0.2s ease;
+}
+
+.tab.active {
+  background: linear-gradient(135deg, #ff6b35, #ec4899);
+  color: white;
+}
+
+.tab:hover:not(.active) {
+  background: #f1f5f9;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <a href="../index.html" class="back-btn">← Espacios de Trabajo</a>
+    <span class="area-badge">📢 Marketing</span>
+    <h1>Espacio de Trabajo</h1>
+  </div>
+  <div>
+    <button onclick="location.reload()" style="padding: 8px 16px; background: #f1f5f9; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
+      🔄 Actualizar
+    </button>
+  </div>
+</div>
+
+<div class="container">
+  <!-- KPIs del Área -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Posts Pendientes</div>
+      <div class="stat-value" id="posts-pending">-</div>
+      <div class="stat-change">Para aprobar</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-label">Posts Publicados</div>
+      <div class="stat-value" id="posts-published">-</div>
+      <div class="stat-change">Este mes</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-label">Engagement Rate</div>
+      <div class="stat-value">3.8%</div>
+      <div class="stat-change">+0.3% vs mes anterior</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-label">Alcance Total</div>
+      <div class="stat-value">12.5K</div>
+      <div class="stat-change">+12% vs mes anterior</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('posts')">📋 Posts Pendientes</button>
+    <button class="tab" onclick="switchTab('published')">✅ Publicados</button>
+    <button class="tab" onclick="switchTab('calendario')">📅 Calendario</button>
+    <button class="tab" onclick="switchTab('analytics')">📊 Analíticas</button>
+    <button class="tab" onclick="switchTab('campanas')">💰 Campañas</button>
+  </div>
+
+  <!-- Contenido de Tabs -->
+  <div id="tab-posts" class="tab-content active">
+    <!-- El módulo marketing-posts.js inyectará aquí -->
+    <div id="posts-container" style="text-align: center; padding: 60px; color: #6e7781;">
+      Cargando posts pendientes...
+    </div>
+  </div>
+
+  <div id="tab-published" class="tab-content">
+    <div style="background: white; padding: 40px; border-radius: 12px; text-align: center;">
+      <div style="font-size: 48px; margin-bottom: 16px;">📱</div>
+      <h2 style="margin-bottom: 8px;">Posts Publicados</h2>
+      <p style="color: #6e7781;">Historial de posts ya publicados en redes sociales</p>
+    </div>
+  </div>
+
+  <div id="tab-calendario" class="tab-content">
+    <div style="background: white; padding: 40px; border-radius: 12px; text-align: center;">
+      <div style="font-size: 48px; margin-bottom: 16px;">📅</div>
+      <h2 style="margin-bottom: 8px;">Calendario de Contenidos</h2>
+      <p style="color: #6e7781;">Vista semanal y mensual de posts programados</p>
+    </div>
+  </div>
+
+  <div id="tab-analytics" class="tab-content">
+    <div style="background: white; padding: 40px; border-radius: 12px; text-align: center;">
+      <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
+      <h2 style="margin-bottom: 8px;">Analíticas de Marketing</h2>
+      <p style="color: #6e7781;">Métricas, insights y reportes del área</p>
+    </div>
+  </div>
+
+  <div id="tab-campanas" class="tab-content">
+    <div style="background: white; padding: 40px; border-radius: 12px; text-align: center;">
+      <div style="font-size: 48px; margin-bottom: 16px;">💰</div>
+      <h2 style="margin-bottom: 8px;">Campañas Publicitarias</h2>
+      <p style="color: #6e7781;">Gestión de campañas en Meta Ads, Google Ads y LinkedIn</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchTab(tabName) {
+  // Desactivar todos los tabs y contenidos
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+  // Activar el tab seleccionado
+  event.target.classList.add('active');
+  document.getElementById(`tab-${tabName}`).classList.add('active');
+}
+
+// Cargar estadísticas desde la API
+async function loadStats() {
+  try {
+    const response = await fetch('http://localhost:5000/api/marketing/status');
+    const data = await response.json();
+
+    if (data.success) {
+      document.getElementById('posts-pending').textContent = data.pending_count || 0;
+      document.getElementById('posts-published').textContent = data.recent_published_count || 0;
+    }
+  } catch (error) {
+    console.error('Error cargando stats:', error);
+  }
+}
+
+// Cargar al iniciar
+loadStats();
+
+// Auto-refresh cada 30 segundos
+setInterval(loadStats, 30000);
+</script>
+
+<!-- Módulo de Posts de Marketing -->
+<script src="marketing-posts.js"></script>
+
+</body>
+</html>

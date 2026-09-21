@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espacios de Trabajo - Agentes IA</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  min-height: 100vh;
+  color: white;
+}
+
+.header {
+  padding: 24px 32px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.back-btn {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(-4px);
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 32px;
+}
+
+.workspaces-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.workspace-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 32px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: white;
+  display: block;
+}
+
+.workspace-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.workspace-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.workspace-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.workspace-desc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.workspace-stats {
+  display: flex;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat {
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(255, 107, 53, 0.2);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #ff6b35;
+  margin-top: 12px;
+}
+
+.badge.active {
+  background: rgba(34, 197, 94, 0.2);
+  border-color: rgba(34, 197, 94, 0.3);
+  color: #22c55e;
+}
+
+.badge.coming-soon {
+  background: rgba(148, 163, 184, 0.2);
+  border-color: rgba(148, 163, 184, 0.3);
+  color: #94a3b8;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>🏢 Espacios de Trabajo</h1>
+      <p class="subtitle">Gestiona cada área de la organización</p>
+    </div>
+    <a href="../dashboard/index.html" class="back-btn">
+      ← Volver al Dashboard
+    </a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="workspaces-grid">
+
+    <!-- Marketing -->
+    <a href="marketing/index.html" class="workspace-card">
+      <div class="workspace-icon" style="background: linear-gradient(135deg, #ff6b35, #ec4899);">
+        📢
+      </div>
+      <div class="workspace-title">Marketing</div>
+      <div class="workspace-desc">
+        Gestiona contenido, campañas publicitarias, analíticas y calendario de publicaciones
+      </div>
+      <div class="workspace-stats">
+        <div class="stat">
+          <div class="stat-value" id="marketing-pending">-</div>
+          <div class="stat-label">Pendientes</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">5</div>
+          <div class="stat-label">Agentes</div>
+        </div>
+      </div>
+      <span class="badge active">✓ Activo</span>
+    </a>
+
+    <!-- Comercial -->
+    <a href="comercial/index.html" class="workspace-card" style="pointer-events: none; opacity: 0.6;">
+      <div class="workspace-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+        💼
+      </div>
+      <div class="workspace-title">Comercial</div>
+      <div class="workspace-desc">
+        Aprobar cotizaciones, gestionar pipeline de ventas y seguimiento de oportunidades
+      </div>
+      <div class="workspace-stats">
+        <div class="stat">
+          <div class="stat-value">-</div>
+          <div class="stat-label">Pendientes</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">5</div>
+          <div class="stat-label">Agentes</div>
+        </div>
+      </div>
+      <span class="badge coming-soon">Próximamente</span>
+    </a>
+
+    <!-- Finanzas -->
+    <a href="finanzas/index.html" class="workspace-card" style="pointer-events: none; opacity: 0.6;">
+      <div class="workspace-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+        💰
+      </div>
+      <div class="workspace-title">Finanzas</div>
+      <div class="workspace-desc">
+        Aprobar facturas, revisar flujo de caja, gestionar cobranzas y reportes financieros
+      </div>
+      <div class="workspace-stats">
+        <div class="stat">
+          <div class="stat-value">-</div>
+          <div class="stat-label">Pendientes</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">5</div>
+          <div class="stat-label">Agentes</div>
+        </div>
+      </div>
+      <span class="badge coming-soon">Próximamente</span>
+    </a>
+
+    <!-- Operaciones -->
+    <a href="operaciones/index.html" class="workspace-card" style="pointer-events: none; opacity: 0.6;">
+      <div class="workspace-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+        ⚙️
+      </div>
+      <div class="workspace-title">Operaciones</div>
+      <div class="workspace-desc">
+        Gestionar inventario, órdenes de compra, logística y documentación operativa
+      </div>
+      <div class="workspace-stats">
+        <div class="stat">
+          <div class="stat-value">-</div>
+          <div class="stat-label">Pendientes</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">5</div>
+          <div class="stat-label">Agentes</div>
+        </div>
+      </div>
+      <span class="badge coming-soon">Próximamente</span>
+    </a>
+
+    <!-- Atención al Cliente -->
+    <a href="atencion-cliente/index.html" class="workspace-card" style="pointer-events: none; opacity: 0.6;">
+      <div class="workspace-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+        🤝
+      </div>
+      <div class="workspace-title">Atención al Cliente</div>
+      <div class="workspace-desc">
+        Gestionar tickets de soporte, reclamos, encuestas de satisfacción y seguimiento
+      </div>
+      <div class="workspace-stats">
+        <div class="stat">
+          <div class="stat-value">-</div>
+          <div class="stat-label">Pendientes</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">5</div>
+          <div class="stat-label">Agentes</div>
+        </div>
+      </div>
+      <span class="badge coming-soon">Próximamente</span>
+    </a>
+
+  </div>
+</div>
+
+<script>
+// Cargar estadísticas de Marketing desde la API
+async function loadMarketingStats() {
+  try {
+    const response = await fetch('http://localhost:5000/api/marketing/status');
+    const data = await response.json();
+
+    if (data.success) {
+      document.getElementById('marketing-pending').textContent = data.pending_count || 0;
+    }
+  } catch (error) {
+    console.error('Error cargando stats de marketing:', error);
+  }
+}
+
+loadMarketingStats();
+setInterval(loadMarketingStats, 30000);
+</script>
+
+</body>
+</html>

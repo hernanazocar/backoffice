@@ -1,0 +1,31 @@
+# Requirements para el sistema de Marketing completo
+
+# Core
+flask==3.0.0
+flask-cors==4.0.0
+requests==2.31.0
+
+# OpenAI (para DALL-E)
+openai==1.6.1
+
+# Meta/Facebook API
+facebook-business==18.0.0
+
+# LinkedIn API (opcional)
+python-linkedin==4.1
+
+# Twitter/X API (opcional)
+tweepy==4.14.0
+
+# Utilidades
+python-dotenv==1.0.0
+Pillow==10.1.0  # Para procesamiento de imágenes
+
+# Database (si necesitas persistencia más allá de JSON)
+sqlalchemy==2.0.23
+
+# Scheduling (para posts programados)
+apscheduler==3.10.4
+
+# Anthropic (para los agentes)
+anthropic==0.8.1

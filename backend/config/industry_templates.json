@@ -1,0 +1,200 @@
+{
+  "templates": {
+    "software_saas": {
+      "name": "Empresa de Software / SaaS",
+      "areas_recomendadas": ["marketing", "ventas", "producto", "atencion_cliente"],
+      "personalizacion": {
+        "marketing": {
+          "enfoque": "Contenido técnico, demos, webinars, casos de éxito",
+          "canales": ["LinkedIn", "Twitter", "Blog técnico", "YouTube"],
+          "kpis": ["Signups gratuitos", "Trial conversions", "Demos agendados"]
+        },
+        "ventas": {
+          "enfoque": "Inside sales, demos de producto, trials",
+          "proceso": "Lead → Demo → Trial → Cierre → Onboarding",
+          "ciclo_venta": "30-90 días"
+        },
+        "producto": {
+          "enfoque": "Desarrollo ágil, sprints, features, bugs",
+          "prioridades": ["Roadmap", "Bug fixes", "Performance", "UX"]
+        },
+        "atencion_cliente": {
+          "enfoque": "Soporte técnico, tickets, documentación",
+          "canales": ["Email", "Chat en vivo", "Base de conocimientos"]
+        }
+      }
+    },
+
+    "ferreteria": {
+      "name": "Ferretería / Retail",
+      "areas_recomendadas": ["ventas", "operaciones", "finanzas", "atencion_cliente"],
+      "personalizacion": {
+        "marketing": {
+          "enfoque": "Promociones locales, catálogos, WhatsApp",
+          "canales": ["Facebook", "Instagram", "WhatsApp Business"],
+          "kpis": ["Tráfico tienda", "Ticket promedio", "Clientes recurrentes"]
+        },
+        "ventas": {
+          "enfoque": "Venta en tienda, cotizaciones para constructoras",
+          "proceso": "Visita → Cotización → Venta → Entrega",
+          "ciclo_venta": "1-7 días"
+        },
+        "operaciones": {
+          "enfoque": "Inventario, proveedores, entregas locales",
+          "prioridades": ["Stock", "Reposición", "Proveedores", "Logística local"],
+          "productos": ["Herramientas", "Materiales construcción", "Eléctricos", "Plomería"]
+        },
+        "finanzas": {
+          "enfoque": "Caja diaria, cuentas por cobrar (crédito a constructoras)",
+          "prioridades": ["Flujo de caja", "Control de créditos", "Costos"]
+        }
+      }
+    },
+
+    "restaurante": {
+      "name": "Restaurante / Café",
+      "areas_recomendadas": ["marketing", "operaciones", "finanzas", "atencion_cliente"],
+      "personalizacion": {
+        "marketing": {
+          "enfoque": "Fotos de platos, promociones, reseñas",
+          "canales": ["Instagram", "Facebook", "Google My Business", "TripAdvisor"],
+          "kpis": ["Reservas", "Deliverys", "Reseñas positivas"]
+        },
+        "operaciones": {
+          "enfoque": "Inventario perecedero, proveedores, cocina, meseros",
+          "prioridades": ["Compras diarias", "Control de merma", "Turnos personal", "Calidad"],
+          "productos": ["Insumos cocina", "Bebidas", "Desechables"]
+        },
+        "finanzas": {
+          "enfoque": "Caja diaria, costos de platos, punto de equilibrio",
+          "prioridades": ["Flujo diario", "Costos de recetas", "Merma"]
+        },
+        "atencion_cliente": {
+          "enfoque": "Reservas, pedidos delivery, quejas",
+          "canales": ["Teléfono", "WhatsApp", "Apps delivery", "Presencial"]
+        }
+      }
+    },
+
+    "ecommerce": {
+      "name": "E-commerce / Tienda Online",
+      "areas_recomendadas": ["marketing", "ventas", "operaciones", "atencion_cliente"],
+      "personalizacion": {
+        "marketing": {
+          "enfoque": "Performance marketing, email, retargeting",
+          "canales": ["Instagram", "Facebook Ads", "Google Ads", "Email", "Influencers"],
+          "kpis": ["Visitas web", "Conversión", "CAC", "LTV"]
+        },
+        "ventas": {
+          "enfoque": "Funnel digital, carrito abandonado, upsell",
+          "proceso": "Visita → Carrito → Checkout → Post-venta",
+          "ciclo_venta": "Inmediato - 3 días"
+        },
+        "operaciones": {
+          "enfoque": "Fulfillment, logística, inventario online",
+          "prioridades": ["Stock sincronizado", "Picking & packing", "Envíos", "Devoluciones"]
+        },
+        "atencion_cliente": {
+          "enfoque": "Chat online, emails, redes sociales",
+          "canales": ["Chat web", "WhatsApp", "Email", "Instagram DM"]
+        }
+      }
+    },
+
+    "consultoria": {
+      "name": "Consultoría / Servicios Profesionales",
+      "areas_recomendadas": ["marketing", "ventas", "finanzas", "rrhh"],
+      "personalizacion": {
+        "marketing": {
+          "enfoque": "Thought leadership, casos de éxito, networking",
+          "canales": ["LinkedIn", "Blog", "Webinars", "Speaking"],
+          "kpis": ["Leads calificados", "Propuestas enviadas", "Tasa cierre"]
+        },
+        "ventas": {
+          "enfoque": "Consultative selling, propuestas personalizadas",
+          "proceso": "Contacto → Discovery → Propuesta → Cierre → Proyecto",
+          "ciclo_venta": "30-120 días"
+        },
+        "rrhh": {
+          "enfoque": "Consultores, capacitación, utilización",
+          "prioridades": ["Recruiting especialistas", "Billable hours", "Capacitación"]
+        },
+        "finanzas": {
+          "enfoque": "Facturación por proyecto/hora, rentabilidad por cliente",
+          "prioridades": ["Utilización consultores", "Margen por proyecto", "Cobranza"]
+        }
+      }
+    },
+
+    "manufactura": {
+      "name": "Manufactura / Producción",
+      "areas_recomendadas": ["operaciones", "ventas", "finanzas", "rrhh"],
+      "personalizacion": {
+        "operaciones": {
+          "enfoque": "Producción, calidad, mantenimiento, supply chain",
+          "prioridades": ["Plan producción", "Eficiencia", "Calidad", "Mantenimiento"],
+          "productos": ["Materia prima", "Productos en proceso", "Terminados"]
+        },
+        "ventas": {
+          "enfoque": "B2B, pedidos grandes, contratos",
+          "proceso": "RFQ → Cotización → Negociación → Orden → Producción → Entrega",
+          "ciclo_venta": "30-180 días"
+        },
+        "finanzas": {
+          "enfoque": "Costos de producción, capital de trabajo",
+          "prioridades": ["Costo por unidad", "WIP", "Margen de contribución"]
+        },
+        "rrhh": {
+          "enfoque": "Operarios, turnos, capacitación técnica",
+          "prioridades": ["Gestión de turnos", "Seguridad", "Productividad"]
+        }
+      }
+    },
+
+    "inmobiliaria": {
+      "name": "Inmobiliaria / Corretaje",
+      "areas_recomendadas": ["marketing", "ventas", "operaciones"],
+      "personalizacion": {
+        "marketing": {
+          "enfoque": "Portales inmobiliarios, tours virtuales, redes",
+          "canales": ["Portal Inmobiliario", "Instagram", "Facebook", "Google Ads"],
+          "kpis": ["Visitas anuncios", "Tours agendados", "Leads"]
+        },
+        "ventas": {
+          "enfoque": "Agendamiento visitas, seguimiento compradores",
+          "proceso": "Lead → Tour → Oferta → Negociación → Cierre",
+          "ciclo_venta": "30-180 días"
+        },
+        "operaciones": {
+          "enfoque": "Inventario de propiedades, documentación, tasaciones",
+          "prioridades": ["Propiedades disponibles", "Documentos", "Tasaciones"]
+        }
+      }
+    },
+
+    "educacion": {
+      "name": "Academia / Centro Educativo",
+      "areas_recomendadas": ["marketing", "ventas", "operaciones", "atencion_cliente"],
+      "personalizacion": {
+        "marketing": {
+          "enfoque": "Captación alumnos, eventos, testimonios",
+          "canales": ["Facebook", "Instagram", "Google Ads", "WhatsApp"],
+          "kpis": ["Consultas", "Matrículas", "Referidos"]
+        },
+        "ventas": {
+          "enfoque": "Asesoramiento, matrículas, inscripciones",
+          "proceso": "Consulta → Info → Visita → Matrícula",
+          "ciclo_venta": "7-30 días"
+        },
+        "operaciones": {
+          "enfoque": "Horarios, profesores, aulas, materiales",
+          "prioridades": ["Calendario académico", "Asignación profesores", "Materiales"]
+        },
+        "atencion_cliente": {
+          "enfoque": "Atención apoderados, consultas académicas",
+          "canales": ["Presencial", "Email", "WhatsApp", "Teléfono"]
+        }
+      }
+    }
+  }
+}

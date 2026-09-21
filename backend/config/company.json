@@ -1,0 +1,66 @@
+{
+  "company": {
+    "name": "Agentes IA Pro",
+    "industry": "Software / IA",
+    "description": "Plataforma de agentes de IA para automatización empresarial",
+    "website": "https://agentesiapro.com",
+    "target_audience": "CEOs, CTOs, Directores de Tecnología",
+    "value_proposition": "Automatiza equipos completos con agentes de IA especializados"
+  },
+
+  "social_media": {
+    "own_accounts": {
+      "instagram": "@agentesiapro",
+      "linkedin": "company/agentes-ia-pro",
+      "twitter": "@agentesiapro",
+      "facebook": "agentesiapro"
+    }
+  },
+
+  "competitors": [
+    {
+      "name": "AutoGen (Microsoft)",
+      "website": "https://microsoft.github.io/autogen/",
+      "social_media": {
+        "twitter": "@pyautogen",
+        "linkedin": "company/microsoft"
+      },
+      "focus": "Framework de agentes conversacionales"
+    },
+    {
+      "name": "CrewAI",
+      "website": "https://www.crewai.com/",
+      "social_media": {
+        "twitter": "@crewAIInc",
+        "linkedin": "company/crewai"
+      },
+      "focus": "Equipos de agentes IA colaborativos"
+    },
+    {
+      "name": "LangGraph",
+      "website": "https://langchain-ai.github.io/langgraph/",
+      "social_media": {
+        "twitter": "@LangChainAI",
+        "linkedin": "company/langchain"
+      },
+      "focus": "Orquestación de agentes con grafos"
+    }
+  ],
+
+  "keywords_to_monitor": [
+    "agentes IA",
+    "AI agents",
+    "automatización empresarial",
+    "agentic AI",
+    "multi-agent systems",
+    "business automation AI"
+  ],
+
+  "content_themes": [
+    "Casos de uso de agentes IA",
+    "Comparativas de frameworks",
+    "ROI de automatización",
+    "Tutoriales técnicos",
+    "Tendencias en IA empresarial"
+  ]
+}

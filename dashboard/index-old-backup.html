@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BackOffice - Panel de Control</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #f8fafc; color: #0f172a; height: 100vh; overflow-y: auto; }
+.main-container { display: flex; height: 100vh; }
+.sidebar { width: 180px; background: #0f172a; color: white; padding: 0; position: fixed; left: 0; top: 0; height: 100vh; overflow-y: auto; overflow-x: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1000; box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12); }
+.sidebar.collapsed { width: 60px; }
+.sidebar-header { padding: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; min-height: 60px; background: rgba(255, 255, 255, 0.02); }
+.sidebar:not(.collapsed) .sidebar-header { justify-content: space-between; padding: 16px 20px; }
+.sidebar-header span { white-space: nowrap; transition: all 0.3s; font-size: 13px; font-weight: 700; letter-spacing: -0.02em; }
+.sidebar.collapsed .sidebar-header span { opacity: 0; width: 0; }
+.sidebar-toggle { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; flex-shrink: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.sidebar-toggle:hover { background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
+.sidebar-toggle svg { width: 16px; height: 16px; stroke: rgba(255, 255, 255, 0.9); transition: transform 0.3s; stroke-width: 2.5; }
+.sidebar.collapsed .sidebar-toggle svg { transform: rotate(180deg); }
+.sidebar-menu { padding: 16px 0; }
+.content-wrapper { flex: 1; padding: 8px 16px; transition: margin-left 0.3s ease; height: 100vh; overflow-y: auto; }
+.content-wrapper.shifted { margin-left: 180px; }
+.content-wrapper.collapsed-shifted { margin-left: 60px; }
+.menu-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; margin: 3px 10px; border-radius: 8px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); color: rgba(255, 255, 255, 0.7); font-size: 13px; font-weight: 500; white-space: nowrap; position: relative; }
+.menu-item::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 0; background: white; border-radius: 0 3px 3px 0; transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.sidebar.collapsed .menu-item { padding: 12px; margin: 4px 12px; justify-content: center; }
+.sidebar.collapsed .menu-item span { opacity: 0; width: 0; overflow: hidden; }
+.menu-item:hover { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.95); transform: translateX(2px); }
+.menu-item:hover::before { height: 20px; }
+.menu-item.active { background: rgba(255, 255, 255, 0.12); color: white; }
+.menu-item.active::before { height: 24px; }
+.menu-item svg { width: 18px; height: 18px; flex-shrink: 0; stroke-width: 2; }
+.sidebar-footer { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; border-top: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.3s; background: rgba(0, 0, 0, 0.2); }
+.sidebar.collapsed .sidebar-footer { opacity: 0; pointer-events: none; transform: translateY(20px); }
+.system-status-sidebar { display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.08); }
+.system-status-sidebar .dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; flex-shrink: 0; box-shadow: 0 0 8px rgba(34, 197, 94, 0.6); animation: pulse-dot 2s ease-in-out infinite; }
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+.system-status-sidebar-text { flex: 1; white-space: nowrap; }
+.system-status-sidebar-title { font-size: 12px; font-weight: 600; color: white; margin-bottom: 2px; }
+.system-status-sidebar-subtitle { font-size: 10px; color: rgba(255, 255, 255, 0.6); }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; gap: 10px; }
+.header h1 { font-size: 20px; font-weight: 700; margin-bottom: 2px; color: #0f172a; }
+.header p { font-size: 11px; color: #718096; font-weight: 500; }
+.header-right { display: flex; gap: 10px; align-items: center; }
+.date-time { font-size: 12px; color: #6e7781; white-space: nowrap; }
+.notification-bell { width: 34px; height: 34px; border-radius: 50%; background: white; border: 1px solid #e8eaed; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.notification-bell svg { width: 18px; height: 18px; stroke: #1a1a1a; }
+.user-menu { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.user-avatar { width: 34px; height: 34px; border-radius: 50%; background: #0f172a; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px; }
+.user-name { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+.user-dropdown { width: 16px; height: 16px; }
+.user-dropdown svg { width: 100%; height: 100%; fill: #6e7781; }
+.system-status-card { background: white; border-radius: 10px; padding: 10px 24px; border: 1px solid #e8eaed; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; justify-content: center; }
+.system-status-indicator { display: flex; align-items: center; gap: 6px; }
+.system-status-indicator .dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
+.system-status-title { font-size: 12px; font-weight: 700; color: #1a1a1a; white-space: nowrap; }
+.system-status-subtitle { font-size: 11px; color: #6e7781; white-space: nowrap; }
+.system-status-count { font-size: 18px; font-weight: 700; color: #1a1a1a; line-height: 1; white-space: nowrap; }
+.system-status-label { font-size: 11px; color: #6e7781; white-space: nowrap; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-bottom: 5px; }
+.stat-card { background: white; border-radius: 12px; padding: 14px 16px; border: none; display: flex; gap: 12px; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.stat-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.06); transform: translateY(-2px); }
+.stat-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.stat-icon.blue { background: #0f172a; }
+.stat-icon.purple { background: #0f172a; }
+.stat-icon.orange { background: #0f172a; }
+.stat-icon.green { background: #0f172a; }
+.stat-icon svg { width: 20px; height: 20px; stroke: white; }
+.stat-value { font-size: 24px; font-weight: 700; line-height: 1; margin-bottom: 2px; }
+.stat-label { font-size: 11px; color: #6e7781; margin-bottom: 2px; }
+.stat-change { font-size: 10px; font-weight: 600; color: #22c55e; }
+.system-indicator { position: absolute; top: 24px; right: 24px; display: flex; gap: 6px; font-size: 12px; font-weight: 600; color: #22c55e; }
+.system-indicator .dot, .status-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; }
+.agents-counter { position: absolute; top: 24px; right: 24px; font-size: 14px; font-weight: 700; text-align: right; }
+.org-section { background: white; border-radius: 14px; padding: 12px 14px; margin-bottom: 8px; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04); }
+.org-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+.section-title { font-size: 12px; font-weight: 700; }
+.section-link { font-size: 9px; color: #4a5568; font-weight: 600; cursor: pointer; }
+.org-chart { display: flex; flex-direction: column; align-items: center; position: relative; }
+.ceo-container { display: flex; flex-direction: column; align-items: center; position: relative; margin-bottom: 8px; }
+.ceo-node { background: white; border: none; border-radius: 12px; padding: 12px 16px; text-align: center; min-width: 150px; position: relative; z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04); }
+.ceo-avatar { width: 40px; height: 40px; border-radius: 50%; background: #0f172a; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; font-weight: 700; margin: 0 auto 6px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.4); }
+.ceo-name { font-size: 11px; font-weight: 700; margin-bottom: 1px; }
+.ceo-role { font-size: 9px; color: #6e7781; margin-bottom: 4px; }
+.status-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; background: #e2e8f0; border-radius: 12px; font-size: 9px; font-weight: 600; color: #0f172a; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15); }
+.org-lines { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 1px; height: 12px; background: #d0d7de; }
+.strategy-box { position: absolute; top: 0; right: -160px; background: #fafbfc; border: 1px solid #e8eaed; border-radius: 6px; padding: 10px; width: 150px; font-size: 10px; }
+.strategy-title { font-size: 11px; font-weight: 700; margin-bottom: 6px; }
+.strategy-item { font-size: 10px; color: #6e7781; margin-bottom: 3px; padding-left: 10px; position: relative; }
+.strategy-item:before { content: '▸'; position: absolute; left: 0; color: #4a5568; }
+.departments-container { width: 100%; position: relative; }
+.horizontal-line { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: #d0d7de; }
+.departments-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; padding-top: 12px; position: relative; }
+.dept-card { background: white; border: none; border-radius: 14px; padding: 16px 12px; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.dept-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.06); transform: translateY(-4px); }
+.dept-card:before { content: ''; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 1px; height: 12px; background: #d0d7de; }
+.dept-header { text-align: center; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid #f6f8fa; }
+.dept-icon { width: 48px; height: 48px; border-radius: 50%; background: #0f172a; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; position: relative; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.4); }
+.dept-icon::before { content: ''; position: absolute; inset: -3px; border-radius: 50%; background: #0f172a; opacity: 0; animation: pulse-ring 2.5s ease-out infinite; z-index: -1; }
+@keyframes pulse-ring {
+  0% { opacity: 0.4; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+.dept-icon svg { width: 20px; height: 20px; fill: white; stroke: white; }
+.dept-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.dept-role { font-size: 10px; color: #6e7781; margin-bottom: 4px; }
+.dept-count { font-size: 10px; color: #8b949e; margin-top: 6px; }
+.agents-list { display: flex; flex-direction: column; gap: 4px; }
+.agent-item { display: flex; align-items: center; gap: 6px; padding: 6px 8px; background: #fafbfc; border-radius: 8px; transition: all 0.2s ease; border: 1px solid rgba(0,0,0,0.02); }
+.agent-item:hover { background: #f0f3f7; transform: translateX(2px); box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+.agent-icon { width: 24px; height: 24px; border-radius: 6px; background: #0f172a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25); }
+.agent-icon svg { width: 12px; height: 12px; fill: white; }
+.agent-info { flex: 1; min-width: 0; }
+.agent-name { font-size: 10px; font-weight: 600; margin-bottom: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.agent-activity { font-size: 9px; color: #6e7781; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.agent-progress { width: 26px; height: 2px; background: #e8eaed; border-radius: 1px; overflow: hidden; flex-shrink: 0; position: relative; margin: 0 1px; }
+.agent-progress::before { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 60%; background: #22c55e; border-radius: 1px; animation: loading 1.5s ease-in-out infinite; }
+@keyframes loading {
+  0% { left: -60%; }
+  100% { left: 100%; }
+}
+.agent-status { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; flex-shrink: 0; animation: blink 2s ease-in-out infinite; }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.agent-spinner { width: 14px; height: 14px; border: 2px solid rgba(15, 23, 42, 0.15); border-top-color: #0f172a; border-radius: 50%; flex-shrink: 0; animation: spin 1.2s linear infinite; }
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.agent-item { }
+.bottom-panels { display: grid; grid-template-columns: 1.8fr 1fr 1fr; gap: 7px; }
+.panel { background: white; border-radius: 14px; padding: 14px; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04); }
+.panel-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.panel-title { font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 4px; }
+.view-all { font-size: 9px; color: #4a5568; font-weight: 600; cursor: pointer; }
+.activity-table { width: 100%; font-size: 10px; border-collapse: separate; border-spacing: 0; }
+.activity-table th { text-align: left; padding: 8px 10px; color: #718096; font-weight: 600; font-size: 9px; border-bottom: 2px solid #e8ecf1; background: #fafbfc; }
+.activity-table th:first-child { border-top-left-radius: 8px; }
+.activity-table th:last-child { border-top-right-radius: 8px; }
+.activity-table td { padding: 10px; border-bottom: 1px solid #f0f3f7; }
+.activity-table tbody tr:hover { background: #fafbfc; }
+.activity-time { color: #6e7781; font-size: 9px; }
+.activity-agent { display: flex; align-items: center; gap: 6px; }
+.activity-agent-icon { width: 20px; height: 20px; border-radius: 4px; background: #6e7781; display: flex; align-items: center; justify-content: center; }
+.activity-agent-icon svg { width: 12px; height: 12px; fill: white; }
+.activity-area { color: #4a5568; font-size: 9px; }
+.status-completed { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; background: #e6f9f0; border-radius: 10px; font-size: 9px; font-weight: 600; color: #22c55e; }
+.status-completed .dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; }
+.performance-list { display: flex; flex-direction: column; gap: 8px; }
+.performance-item { display: flex; flex-direction: column; gap: 4px; }
+.performance-header { display: flex; justify-content: space-between; }
+.performance-label { font-size: 10px; font-weight: 600; }
+.performance-value { font-size: 11px; font-weight: 700; }
+.performance-bar { height: 6px; background: rgba(15, 23, 42, 0.1); border-radius: 10px; overflow: hidden; }
+.performance-fill { height: 100%; border-radius: 10px; transition: width 1s ease; }
+.tasks-list { display: flex; flex-direction: column; gap: 6px; }
+.task-item { display: flex; align-items: center; gap: 8px; padding: 8px; background: #fafbfc; border-radius: 6px; }
+.task-count { min-width: 32px; height: 32px; padding: 0 8px; border-radius: 8px; background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; color: white; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.3); }
+.task-desc { font-size: 10px; font-weight: 600; }
+
+/* ORGANIGRAMA VIEW */
+.view-section { display: none; }
+.view-section.active { display: block; }
+.org-view { background: white; border-radius: 14px; padding: 32px 24px; margin-bottom: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04); }
+.org-view-title { font-size: 16px; font-weight: 700; margin-bottom: 24px; color: #0f172a; text-align: center; }
+.hierarchy-container { display: flex; flex-direction: column; align-items: center; gap: 40px; overflow-x: auto; padding: 20px; }
+.level-1 { display: flex; justify-content: center; position: relative; }
+.ceo-card { background: white; border: 2px solid #0f172a; border-radius: 16px; padding: 20px 32px; text-align: center; min-width: 220px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.2); position: relative; }
+.ceo-card::after { content: ''; position: absolute; bottom: -40px; left: 50%; width: 2px; height: 40px; background: #cbd5e1; }
+.ceo-card-avatar { width: 64px; height: 64px; border-radius: 50%; background: #0f172a; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: 700; margin: 0 auto 12px; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.4); }
+.ceo-card-name { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: #0f172a; }
+.ceo-card-role { font-size: 12px; color: #64748b; margin-bottom: 8px; }
+.ceo-card-status { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: #f1f5f9; border-radius: 12px; font-size: 10px; font-weight: 600; color: #0f172a; }
+.ceo-card-status .dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; animation: blink 2s infinite; }
+.level-2 { display: flex; justify-content: center; gap: 16px; position: relative; width: 100%; max-width: 1400px; }
+.level-2::before { content: ''; position: absolute; top: -20px; left: 10%; right: 10%; height: 2px; background: #cbd5e1; }
+.manager-column { display: flex; flex-direction: column; align-items: center; flex: 1; position: relative; }
+.manager-column::before { content: ''; position: absolute; top: -20px; left: 50%; width: 2px; height: 20px; background: #cbd5e1; }
+.manager-card { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; text-align: center; min-width: 200px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: all 0.3s ease; margin-bottom: 24px; position: relative; }
+.manager-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.12); transform: translateY(-4px); border-color: #0f172a; }
+.manager-card::after { content: ''; position: absolute; bottom: -24px; left: 50%; width: 2px; height: 24px; background: #cbd5e1; }
+.manager-avatar { width: 48px; height: 48px; border-radius: 50%; background: #0f172a; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 700; margin: 0 auto 10px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3); }
+.manager-name { font-size: 13px; font-weight: 700; margin-bottom: 3px; color: #0f172a; }
+.manager-role { font-size: 10px; color: #64748b; margin-bottom: 6px; }
+.manager-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; background: #f1f5f9; border-radius: 8px; font-size: 9px; font-weight: 600; color: #475569; }
+.manager-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: blink 2s infinite; }
+.agents-column { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.org-agent-card { background: #fafbfc; border: 1px solid #e8eaed; border-radius: 10px; padding: 12px; display: flex; align-items: center; gap: 10px; transition: all 0.2s ease; }
+.org-agent-card:hover { background: #f1f5f9; border-color: #cbd5e1; transform: translateX(4px); }
+.org-agent-avatar { width: 32px; height: 32px; border-radius: 8px; background: #0f172a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25); }
+.org-agent-avatar svg { width: 16px; height: 16px; fill: white; }
+.org-agent-info { flex: 1; min-width: 0; }
+.org-agent-name { font-size: 11px; font-weight: 600; margin-bottom: 2px; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.org-agent-activity { font-size: 9px; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.org-agent-status { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; flex-shrink: 0; animation: blink 2s infinite; }
+</style>
+</head>
+<body>
+<div class="main-container">
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span style="font-size: 13px; font-weight: 600; color: white;">Menú</span>
+    <button class="sidebar-toggle" id="sidebarToggle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="11 17 6 12 11 7"></polyline>
+        <polyline points="18 17 13 12 18 7"></polyline>
+      </svg>
+    </button>
+  </div>
+  <div class="sidebar-menu">
+  <div class="menu-item active" data-view="dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    <span>Dashboard</span>
+  </div>
+  <div class="menu-item" data-view="ejecutar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6"/><path d="M12 17v6"/><circle cx="4.22" cy="4.22" r="1"/><circle cx="19.78" cy="4.22" r="1"/><circle cx="19.78" cy="19.78" r="1"/><circle cx="4.22" cy="19.78" r="1"/></svg>
+    <span>Ejecutar</span>
+  </div>
+  <div class="menu-item" data-view="agentes">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    <span>Agentes</span>
+  </div>
+  <div class="menu-item" data-view="configuracion">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m5.2-14.2l-4.2 4.2m-1.7 1.7l-4.2 4.2M23 12h-6m-6 0H1m14.2 5.2l-4.2-4.2m-1.7-1.7l-4.2-4.2"/></svg>
+    <span>Configuración</span>
+  </div>
+  <div class="menu-item" data-view="historial">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    <span>Historial</span>
+  </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="system-status-sidebar">
+      <div class="dot"></div>
+      <div class="system-status-sidebar-text">
+        <div class="system-status-sidebar-title">Sistema Operativo</div>
+        <div class="system-status-sidebar-subtitle">Todos los agentes activos</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content-wrapper shifted" id="contentWrapper">
+
+<!-- DASHBOARD VIEW -->
+<div class="view-section active" id="dashboardView">
+<div class="header">
+  <div>
+    <h1>Centro de Agentes</h1>
+    <p>Supervisando 25 agentes de IA en tiempo real</p>
+  </div>
+  <div class="header-right">
+    <div class="date-time">
+      <span id="date">Lun, 26 May 2025</span>&nbsp;&nbsp;<span id="time">10:24</span>
+    </div>
+    <div class="notification-bell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </div>
+    <div class="user-menu">
+      <div class="user-avatar">H</div>
+      <span class="user-name">Hernán</span>
+      <div class="user-dropdown">
+        <svg viewBox="0 0 24 24">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon blue">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#6e7781" stroke-width="2.5">
+        <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+    </div>
+    <div>
+      <div class="stat-value">25</div>
+      <div class="stat-label">Agentes IA</div>
+      <div class="stat-change">100% operativos</div>
+    </div>
+    <div class="system-indicator"><div class="dot"></div><span>Sistema Online</span></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon purple">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#6e7781" stroke-width="2.5">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    </div>
+    <div>
+      <div class="stat-value">5</div>
+      <div class="stat-label">Áreas</div>
+      <div class="stat-change">Cobertura total</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon orange">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#6e7781" stroke-width="2.5">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+      </svg>
+    </div>
+    <div>
+      <div class="stat-value">142</div>
+      <div class="stat-label">Tareas en ejecución</div>
+      <div class="stat-change">+12% vs. ayer</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon green">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#6e7781" stroke-width="2.5">
+        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+      </svg>
+    </div>
+    <div>
+      <div class="stat-value">98%</div>
+      <div class="stat-label">Eficiencia global</div>
+      <div class="stat-change">+4% vs. semana anterior</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-section">
+  <div class="org-header">
+    <h2 class="section-title">Estructura Organizacional</h2>
+    <div class="section-link">Estrategia y Control →</div>
+  </div>
+  <div class="org-chart">
+    <div class="ceo-container">
+      <div class="ceo-node">
+        <div class="ceo-avatar">H</div>
+        <div class="ceo-name">Hernán</div>
+        <div class="ceo-role">Gerente General</div>
+        <div class="status-badge"><div class="dot"></div>En línea</div>
+      </div>
+      <div class="org-lines"></div>
+      <div class="strategy-box">
+        <div class="strategy-title">Estrategia y Control</div>
+        <div class="strategy-item">Visión global</div>
+        <div class="strategy-item">KPIs</div>
+        <div class="strategy-item">Toma de decisiones</div>
+      </div>
+    </div>
+    <div class="departments-container">
+      <div class="horizontal-line"></div>
+      <div class="departments-grid">
+        <div class="dept-card">
+          <div class="dept-header">
+            <div class="dept-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/>
+              </svg>
+            </div>
+            <div class="dept-name">Gerente de Marketing</div>
+            <div class="dept-role">Agente IA</div>
+            <div class="status-badge"><div class="dot"></div>En línea</div>
+            <div class="dept-count">5 agentes</div>
+          </div>
+          <div class="agents-list">
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Community Manager</div><div class="agent-activity">Creando contenido para redes</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Diseñador Gráfico</div><div class="agent-activity">Generando piezas visuales</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Paid Media Specialist</div><div class="agent-activity">Optimizando campañas publicitarias</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Analista de Marketing</div><div class="agent-activity">Analizando métricas y KPIs</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+          </div>
+        </div>
+        <div class="dept-card">
+          <div class="dept-header">
+            <div class="dept-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <div class="dept-name">Gerente Comercial</div>
+            <div class="dept-role">Agente IA</div>
+            <div class="status-badge"><div class="dot"></div>En línea</div>
+            <div class="dept-count">5 agentes</div>
+          </div>
+          <div class="agents-list">
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Ejecutivo de Ventas</div><div class="agent-activity">Generando cotizaciones y cierres</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Prospector de Leads</div><div class="agent-activity">Identificando clientes potenciales</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Analista Comercial</div><div class="agent-activity">Analizando mercado y competencia</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Coordinador de Cuentas</div><div class="agent-activity">Gestionando clientes existentes</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+          </div>
+        </div>
+        <div class="dept-card">
+          <div class="dept-header">
+            <div class="dept-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <div class="dept-name">Gerente de Atención al Cliente</div>
+            <div class="dept-role">Agente IA</div>
+            <div class="status-badge"><div class="dot"></div>En línea</div>
+            <div class="dept-count">5 agentes</div>
+          </div>
+          <div class="agents-list">
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Ejecutivo de Soporte</div><div class="agent-activity">Atendiendo consultas de clientes</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Coordinador de Reclamos</div><div class="agent-activity">Gestionando quejas y soluciones</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Analista de Satisfacción</div><div class="agent-activity">Analizando feedback de clientes</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Coordinador Postventa</div><div class="agent-activity">Seguimiento post-compra</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+          </div>
+        </div>
+        <div class="dept-card">
+          <div class="dept-header">
+            <div class="dept-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m5.2-14.2l-4.2 4.2m-1.7 1.7l-4.2 4.2M23 12h-6m-6 0H1m14.2 5.2l-4.2-4.2m-1.7-1.7l-4.2-4.2"/>
+              </svg>
+            </div>
+            <div class="dept-name">Gerente de Operaciones</div>
+            <div class="dept-role">Agente IA</div>
+            <div class="status-badge"><div class="dot"></div>En línea</div>
+            <div class="dept-count">5 agentes</div>
+          </div>
+          <div class="agents-list">
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Coordinador Logístico</div><div class="agent-activity">Coordinando entregas y despachos</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Analista de Inventario</div><div class="agent-activity">Controlando stock y reposición</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Coordinador de Compras</div><div class="agent-activity">Gestionando proveedores y órdenes</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Asistente Administrativo</div><div class="agent-activity">Generando documentación</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+          </div>
+        </div>
+        <div class="dept-card">
+          <div class="dept-header">
+            <div class="dept-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <div class="dept-name">Gerente de Finanzas</div>
+            <div class="dept-role">Agente IA</div>
+            <div class="status-badge"><div class="dot"></div>En línea</div>
+            <div class="dept-count">5 agentes</div>
+          </div>
+          <div class="agents-list">
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Contador</div><div class="agent-activity">Registrando transacciones</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Analista Financiero</div><div class="agent-activity">Proyectando flujo de caja</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Coordinador de Cobranzas</div><div class="agent-activity">Gestionando cuentas por cobrar</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-status"></div>
+              <div class="agent-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="agent-info"><div class="agent-name">Tesorero</div><div class="agent-activity">Controlando caja y bancos</div></div>
+              <div class="agent-spinner"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-panels">
+  <!-- Actividad Reciente -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        Actividad reciente de agentes
+      </div>
+      <div class="view-all" style="color: #475569; cursor: pointer;">Ver todas →</div>
+    </div>
+    <table class="activity-table">
+      <thead>
+        <tr>
+          <th>Hora</th>
+          <th>Agente</th>
+          <th>Área</th>
+          <th>Actividad</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="activity-time">10:24</span></td>
+          <td><div class="activity-agent"><div class="activity-agent-icon"><svg viewBox="0 0 24 24" fill="white"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>Prospector IA</div></td>
+          <td><span class="activity-area" style="color: #334155;">Comercial</span></td>
+          <td>Encontró 12 nuevos leads</td>
+          <td><div class="status-completed"><div class="dot"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="activity-time">10:22</span></td>
+          <td><div class="activity-agent"><div class="activity-agent-icon"><svg viewBox="0 0 24 24" fill="white"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>Diseñador IA</div></td>
+          <td><span class="activity-area" style="color: #475569;">Marketing</span></td>
+          <td>Generó 3 nuevas gráficas</td>
+          <td><div class="status-completed"><div class="dot"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="activity-time">10:21</span></td>
+          <td><div class="activity-agent"><div class="activity-agent-icon"><svg viewBox="0 0 24 24" fill="white"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>Gestor Inventario IA</div></td>
+          <td><span class="activity-area" style="color: #1e293b;">Operaciones</span></td>
+          <td>Actualizó stock en 5 proyectos</td>
+          <td><div class="status-completed"><div class="dot"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="activity-time">10:20</span></td>
+          <td><div class="activity-agent"><div class="activity-agent-icon"><svg viewBox="0 0 24 24" fill="white"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>Contador IA</div></td>
+          <td><span class="activity-area" style="color: #64748b;">Finanzas</span></td>
+          <td>Procesó 48 transacciones</td>
+          <td><div class="status-completed"><div class="dot"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="activity-time">10:18</span></td>
+          <td><div class="activity-agent"><div class="activity-agent-icon"><svg viewBox="0 0 24 24" fill="white"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>Ejecutivo Soporte</div></td>
+          <td><span class="activity-area" style="color: #64748b;">Atención Cliente</span></td>
+          <td>Atendió 15 consultas de clientes</td>
+          <td><div class="status-completed"><div class="dot"></div></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Rendimiento por Área -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+        Rendimiento por área
+      </div>
+    </div>
+    <div class="performance-list">
+      <div class="performance-item">
+        <div class="performance-header">
+          <span class="performance-label">Marketing</span>
+          <span class="performance-value" style="color: #0f172a; font-weight: 700;">92%</span>
+        </div>
+        <div class="performance-bar">
+          <div class="performance-fill" style="width: 92%; background: #0f172a;"></div>
+        </div>
+      </div>
+      <div class="performance-item">
+        <div class="performance-header">
+          <span class="performance-label">Comercial</span>
+          <span class="performance-value" style="color: #0f172a; font-weight: 700;">88%</span>
+        </div>
+        <div class="performance-bar">
+          <div class="performance-fill" style="width: 88%; background: #0f172a;"></div>
+        </div>
+      </div>
+      <div class="performance-item">
+        <div class="performance-header">
+          <span class="performance-label">Atención Cliente</span>
+          <span class="performance-value" style="color: #0f172a; font-weight: 700;">95%</span>
+        </div>
+        <div class="performance-bar">
+          <div class="performance-fill" style="width: 95%; background: #0f172a;"></div>
+        </div>
+      </div>
+      <div class="performance-item">
+        <div class="performance-header">
+          <span class="performance-label">Operaciones</span>
+          <span class="performance-value" style="color: #0f172a; font-weight: 700;">90%</span>
+        </div>
+        <div class="performance-bar">
+          <div class="performance-fill" style="width: 90%; background: #0f172a;"></div>
+        </div>
+      </div>
+      <div class="performance-item">
+        <div class="performance-header">
+          <span class="performance-label">Finanzas</span>
+          <span class="performance-value" style="color: #0f172a; font-weight: 700;">87%</span>
+        </div>
+        <div class="performance-bar">
+          <div class="performance-fill" style="width: 87%; background: #0f172a;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tareas en Ejecución -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;">
+          <path d="M3 3h7v7H3z"/><path d="M14 3h7v7h-7z"/><path d="M14 14h7v7h-7z"/><path d="M3 14h7v7H3z"/>
+        </svg>
+        Tareas en ejecución
+      </div>
+    </div>
+    <div class="tasks-list">
+      <div class="task-item">
+        <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" style="width: 20px; height: 20px;">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <div class="task-count">48</div>
+          <div class="task-desc">Procesando datos</div>
+        </div>
+      </div>
+      <div class="task-item">
+        <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="2" style="width: 20px; height: 20px;">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <div class="task-count">36</div>
+          <div class="task-desc">Generando contenido</div>
+        </div>
+      </div>
+      <div class="task-item">
+        <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="2" style="width: 20px; height: 20px;">
+            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+          <div class="task-count">28</div>
+          <div class="task-desc">Analizando información</div>
+        </div>
+      </div>
+      <div class="task-item">
+        <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2" style="width: 20px; height: 20px;">
+            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+          <div class="task-count">18</div>
+          <div class="task-desc">Enviando comunicaciones</div>
+        </div>
+      </div>
+      <div class="task-item">
+        <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" style="width: 20px; height: 20px;">
+            <circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m5.2-14.2l-4.2 4.2m-1.7 1.7l-4.2 4.2M23 12h-6m-6 0H1m14.2 5.2l-4.2-4.2m-1.7-1.7l-4.2-4.2"/>
+          </svg>
+          <div class="task-count">12</div>
+          <div class="task-desc">Ejecutando procesos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div><!-- Fin Dashboard View -->
+
+<!-- ORGANIGRAMA VIEW -->
+<div class="view-section" id="organigramaView">
+  <div class="header">
+    <div>
+      <h1>Organigrama Organizacional</h1>
+      <p>Estructura jerárquica completa de agentes IA</p>
+    </div>
+  </div>
+
+  <div class="org-view">
+    <div class="hierarchy-container">
+      <!-- Nivel 1: CEO -->
+      <div class="level-1">
+        <div class="ceo-card">
+          <div class="ceo-card-avatar">GG</div>
+          <div class="ceo-card-name">Gerente General</div>
+          <div class="ceo-card-role">CEO de la Organización</div>
+          <div class="ceo-card-status"><div class="dot"></div>En línea</div>
+        </div>
+      </div>
+
+      <!-- Nivel 2 y 3: Gerentes y Agentes -->
+      <div class="level-2">
+        <!-- Marketing -->
+        <div class="manager-column">
+          <div class="manager-card">
+            <div class="manager-avatar">MK</div>
+            <div class="manager-name">Gerente de Marketing</div>
+            <div class="manager-role">Agente IA</div>
+            <div class="manager-badge"><div class="dot"></div>5 agentes</div>
+          </div>
+          <div class="agents-column">
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Community Manager</div>
+                <div class="org-agent-activity">Gestionando redes sociales</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Paid Media</div>
+                <div class="org-agent-activity">Optimizando campañas digitales</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Analista de Marketing</div>
+                <div class="org-agent-activity">Analizando métricas de conversión</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Diseñador Gráfico</div>
+                <div class="org-agent-activity">Creando contenido visual</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Reportador Marketing</div>
+                <div class="org-agent-activity">Consolidando métricas de marketing</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comercial -->
+        <div class="manager-column">
+          <div class="manager-card">
+            <div class="manager-avatar">CM</div>
+            <div class="manager-name">Gerente Comercial</div>
+            <div class="manager-role">Agente IA</div>
+            <div class="manager-badge"><div class="dot"></div>5 agentes</div>
+          </div>
+          <div class="agents-column">
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Prospector de Leads</div>
+                <div class="org-agent-activity">Buscando clientes potenciales</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Calificador de Leads</div>
+                <div class="org-agent-activity">Evaluando calidad de contactos</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Ejecutivo de Ventas</div>
+                <div class="org-agent-activity">Realizando cierres comerciales</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Seguimiento & Retención</div>
+                <div class="org-agent-activity">Gestionando renovaciones</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Reportador Comercial</div>
+                <div class="org-agent-activity">Consolidando pipeline de ventas</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Atención al Cliente -->
+        <div class="manager-column">
+          <div class="manager-card">
+            <div class="manager-avatar">AC</div>
+            <div class="manager-name">Gerente de Atención al Cliente</div>
+            <div class="manager-role">Agente IA</div>
+            <div class="manager-badge"><div class="dot"></div>5 agentes</div>
+          </div>
+          <div class="agents-column">
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Ejecutivo de Soporte</div>
+                <div class="org-agent-activity">Atendiendo consultas</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Coordinador de Reclamos</div>
+                <div class="org-agent-activity">Gestionando quejas</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Analista de Satisfacción</div>
+                <div class="org-agent-activity">Analizando feedback</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Coordinador Postventa</div>
+                <div class="org-agent-activity">Seguimiento post-compra</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Operación -->
+        <div class="manager-column">
+          <div class="manager-card">
+            <div class="manager-avatar">OP</div>
+            <div class="manager-name">Gerente de Operación</div>
+            <div class="manager-role">Agente IA</div>
+            <div class="manager-badge"><div class="dot"></div>5 agentes</div>
+          </div>
+          <div class="agents-column">
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Gestor de Inventario</div>
+                <div class="org-agent-activity">Controlando stock en tiempo real</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Coordinador Logístico</div>
+                <div class="org-agent-activity">Gestionando despachos</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Generador Documentación</div>
+                <div class="org-agent-activity">Creando contratos y facturas</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Atención Postventa</div>
+                <div class="org-agent-activity">Gestionando reclamos</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Reportador Operaciones</div>
+                <div class="org-agent-activity">Consolidando métricas operacionales</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Finanzas -->
+        <div class="manager-column">
+          <div class="manager-card">
+            <div class="manager-avatar">FN</div>
+            <div class="manager-name">Gerente de Finanzas</div>
+            <div class="manager-role">Agente IA</div>
+            <div class="manager-badge"><div class="dot"></div>5 agentes</div>
+          </div>
+          <div class="agents-column">
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Contador General</div>
+                <div class="org-agent-activity">Procesando transacciones contables</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Tesorero</div>
+                <div class="org-agent-activity">Proyectando flujo de caja</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Gestor de Cobranzas</div>
+                <div class="org-agent-activity">Siguiendo pagos pendientes</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Analista Financiero</div>
+                <div class="org-agent-activity">Analizando rentabilidad</div>
+              </div>
+            </div>
+            <div class="org-agent-card">
+              <div class="org-agent-status"></div>
+              <div class="org-agent-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="org-agent-info">
+                <div class="org-agent-name">Reportador Financiero</div>
+                <div class="org-agent-activity">Consolidando dashboard ejecutivo</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- Fin Organigrama View -->
+
+<!-- WORKFLOWS VIEW -->
+<div class="view-section" id="workflowsView" style="display:none;">
+  <div class="header">
+    <div>
+      <h1>🚀 Ejecutar Workflows</h1>
+      <p>Lanza workflows de agentes IA y ve el progreso en tiempo real</p>
+    </div>
+    <div class="header-right">
+      <div id="ws-status" style="font-size:12px; color:#64748b; display:flex; align-items:center; gap:6px;">
+        <div style="width:8px; height:8px; border-radius:50%; background:#94a3b8;"></div>
+        Conectando...
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:16px;">
+
+    <!-- Panel Izquierdo: Formulario -->
+    <div style="background:white; border-radius:14px; padding:24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+      <h3 style="font-size:16px; font-weight:700; margin-bottom:16px; color:#0f172a;">Configurar Workflow</h3>
+
+      <div style="margin-bottom:16px;">
+        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:8px; color:#475569;">Tipo de Workflow</label>
+        <select id="workflow-type" style="width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:8px; font-size:14px; background:white;">
+          <option value="marketing">Marketing - Contenido Semanal</option>
+          <option value="comercial" disabled>Comercial - Análisis Mercado (Próximamente)</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:8px; color:#475569;">Instrucción para los Agentes</label>
+        <textarea id="workflow-instruction" rows="6" placeholder="Ejemplo: Crear contenido para una ferretería que vende cemento y herramientas. Competencia: Easy, Sodimac." style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-size:14px; resize:vertical; font-family:inherit;"></textarea>
+      </div>
+
+      <button id="btn-execute" style="width:100%; padding:14px; background:#0f172a; color:white; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition:all 0.3s;">
+        🚀 Ejecutar Workflow
+      </button>
+
+      <div id="executing-indicator" style="display:none; margin-top:16px; padding:12px; background:#f1f5f9; border-radius:8px; text-align:center;">
+        <div style="display:inline-block; width:16px; height:16px; border:2px solid #0f172a; border-top-color:transparent; border-radius:50%; animation:spin 0.8s linear infinite; margin-right:8px;"></div>
+        <span style="font-size:13px; color:#475569; font-weight:600;">Ejecutando...</span>
+      </div>
+    </div>
+
+    <!-- Panel Derecho: Log en Vivo -->
+    <div style="background:white; border-radius:14px; padding:24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+      <h3 style="font-size:16px; font-weight:700; margin-bottom:16px; color:#0f172a;">Log en Tiempo Real</h3>
+
+      <div id="workflow-log" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px; height:440px; overflow-y:auto; font-family:'SF Mono', Monaco, monospace; font-size:12px; line-height:1.6;">
+        <div style="color:#94a3b8; text-align:center; padding:40px 20px;">
+          Esperando ejecución de workflow...
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- Fin Workflows View -->
+
+<!-- AGENTES VIEW -->
+<div class="view-section" id="agentesView" style="display:none;">
+  <div class="header">
+    <div>
+      <h1>👥 Gestión de Agentes</h1>
+      <p>Ver, editar, crear y administrar agentes IA</p>
+    </div>
+    <div class="header-right">
+      <button id="btn-new-agent" style="padding:10px 20px; background:#0f172a; color:white; border:none; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer;">
+        + Nuevo Agente
+      </button>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;">
+    <!-- Lista de Agentes por Departamento -->
+    <div id="agents-list" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap:16px;">
+      <div style="text-align:center; padding:60px; color:#94a3b8;">
+        Cargando agentes...
+      </div>
+    </div>
+  </div>
+</div><!-- Fin Agentes View -->
+
+<!-- CONFIGURACION VIEW -->
+<div class="view-section" id="configuracionView" style="display:none;">
+  <div class="header">
+    <div>
+      <h1>⚙️ Configuración</h1>
+      <p>Configura tu empresa y cada área del equipo</p>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;">
+    <!-- Tabs de Configuración -->
+    <div style="background:white; border-radius:14px; padding:20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+      <div style="display:flex; gap:16px; border-bottom:2px solid #f1f5f9; margin-bottom:24px;">
+        <div class="config-tab active" data-config="general" style="padding:12px 20px; cursor:pointer; font-weight:600; font-size:14px; color:#0f172a; border-bottom:3px solid #0f172a; margin-bottom:-2px;">General</div>
+        <div class="config-tab" data-config="marketing" style="padding:12px 20px; cursor:pointer; font-weight:600; font-size:14px; color:#64748b;">Marketing</div>
+        <div class="config-tab" data-config="comercial" style="padding:12px 20px; cursor:pointer; font-weight:600; font-size:14px; color:#64748b;">Comercial</div>
+        <div class="config-tab" data-config="finanzas" style="padding:12px 20px; cursor:pointer; font-weight:600; font-size:14px; color:#64748b;">Finanzas</div>
+        <div class="config-tab" data-config="operaciones" style="padding:12px 20px; cursor:pointer; font-weight:600; font-size:14px; color:#64748b;">Operaciones</div>
+      </div>
+
+      <!-- Config General -->
+      <div class="config-panel" id="config-general">
+        <h3 style="font-size:16px; font-weight:700; margin-bottom:20px;">Configuración General</h3>
+        <div style="display:grid; gap:16px;">
+          <div>
+            <label style="display:block; font-size:13px; font-weight:600; margin-bottom:8px; color:#475569;">Nombre de la Empresa</label>
+            <input type="text" id="cfg-company-name" placeholder="Ej: Ferretería El Constructor" style="width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:8px; font-size:14px;">
+          </div>
+          <div>
+            <label style="display:block; font-size:13px; font-weight:600; margin-bottom:8px; color:#475569;">Industria</label>
+            <select id="cfg-industry" style="width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:8px; font-size:14px;">
+              <option>Software / SaaS</option>
+              <option>Ferretería / Retail</option>
+              <option>Restaurante / Café</option>
+              <option>E-commerce</option>
+              <option>Consultoría</option>
+              <option>Manufactura</option>
+              <option>Inmobiliaria</option>
+              <option>Academia / Educación</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block; font-size:13px; font-weight:600; margin-bottom:8px; color:#475569;">Descripción</label>
+            <textarea id="cfg-description" rows="3" placeholder="¿Qué hace tu empresa?" style="width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:8px; font-size:14px; resize:vertical;"></textarea>
+          </div>
+          <button style="padding:12px 24px; background:#0f172a; color:white; border:none; border-radius:8px; font-weight:600; cursor:pointer; width:fit-content;">
+            💾 Guardar Configuración
+          </button>
+        </div>
+      </div>
+
+      <!-- Config Marketing -->
+      <div class="config-panel" id="config-marketing" style="display:none;">
+        <h3 style="font-size:16px; font-weight:700; margin-bottom:20px;">Configuración Marketing</h3>
+        <div style="display:grid; gap:16px;">
+          <div>
+            <label style="display:block; font-size:13px; font-weight:600; margin-bottom:8px; color:#475569;">Competidores (separados por coma)</label>
+            <input type="text" id="cfg-competitors" placeholder="Ej: Easy, Sodimac, Construmart" style="width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:8px; font-size:14px;">
+          </div>
+          <div>
+            <label style="display:block; font-size:13px; font-weight:600; margin-bottom:8px; color:#475569;">Productos/Servicios Principales</label>
+            <input type="text" id="cfg-products" placeholder="Ej: Cemento, Herramientas, Materiales construcción" style="width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:8px; font-size:14px;">
+          </div>
+          <div>
+            <label style="display:block; font-size:13px; font-weight:600; margin-bottom:8px; color:#475569;">Redes Sociales Activas</label>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="checkbox" checked> Instagram</label>
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="checkbox" checked> Facebook</label>
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="checkbox"> LinkedIn</label>
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="checkbox"> Twitter/X</label>
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="checkbox"> TikTok</label>
+            </div>
+          </div>
+          <button style="padding:12px 24px; background:#0f172a; color:white; border:none; border-radius:8px; font-weight:600; cursor:pointer; width:fit-content;">
+            💾 Guardar Configuración
+          </button>
+        </div>
+      </div>
+
+      <!-- Otros tabs similar -->
+      <div class="config-panel" id="config-comercial" style="display:none;">
+        <h3 style="font-size:16px; font-weight:700; margin-bottom:20px;">Configuración Comercial</h3>
+        <p style="color:#64748b;">Configuración del área comercial (CRM, pipeline, etc.)</p>
+      </div>
+
+      <div class="config-panel" id="config-finanzas" style="display:none;">
+        <h3 style="font-size:16px; font-weight:700; margin-bottom:20px;">Configuración Finanzas</h3>
+        <p style="color:#64748b;">Configuración del área financiera</p>
+      </div>
+
+      <div class="config-panel" id="config-operaciones" style="display:none;">
+        <h3 style="font-size:16px; font-weight:700; margin-bottom:20px;">Configuración Operaciones</h3>
+        <p style="color:#64748b;">Configuración del área de operaciones</p>
+      </div>
+    </div>
+  </div>
+</div><!-- Fin Configuracion View -->
+
+<!-- HISTORIAL VIEW -->
+<div class="view-section" id="historialView" style="display:none;">
+  <div class="header">
+    <div>
+      <h1>📁 Historial</h1>
+      <p>Workflows ejecutados y reportes generados</p>
+    </div>
+  </div>
+
+  <div style="margin-top:16px; background:white; border-radius:14px; padding:24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+    <div id="history-list" style="display:grid; gap:12px;">
+      <div style="text-align:center; padding:60px; color:#94a3b8;">
+        No hay workflows ejecutados todavía
+      </div>
+    </div>
+  </div>
+</div><!-- Fin Historial View -->
+
+</div><!-- Fin content-wrapper -->
+
+<script>
+// Reloj
+setInterval(()=>{
+const n=new Date(),d=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],m=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+document.getElementById('date').textContent=`${d[n.getDay()]}, ${n.getDate()} ${m[n.getMonth()]} ${n.getFullYear()}`;
+document.getElementById('time').textContent=`${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
+},60000);
+
+// Sidebar toggle
+const sidebar = document.getElementById('sidebar');
+const toggle = document.getElementById('sidebarToggle');
+const content = document.getElementById('contentWrapper');
+
+toggle.addEventListener('click', () => {
+  sidebar.classList.toggle('collapsed');
+  if (sidebar.classList.contains('collapsed')) {
+    content.classList.remove('shifted');
+    content.classList.add('collapsed-shifted');
+  } else {
+    content.classList.remove('collapsed-shifted');
+    content.classList.add('shifted');
+  }
+});
+
+// Navegación entre vistas
+const menuItems = document.querySelectorAll('.menu-item');
+const views = {
+  dashboard: document.getElementById('dashboardView'),
+  ejecutar: document.getElementById('workflowsView'),
+  agentes: document.getElementById('agentesView'),
+  configuracion: document.getElementById('configuracionView'),
+  historial: document.getElementById('historialView')
+};
+
+menuItems.forEach(item => {
+  item.addEventListener('click', () => {
+    const viewName = item.dataset.view;
+
+    // Remover active de todos
+    menuItems.forEach(mi => mi.classList.remove('active'));
+    item.classList.add('active');
+
+    // Ocultar todas las vistas
+    Object.values(views).forEach(v => v.style.display = 'none');
+
+    // Mostrar la vista seleccionada
+    if (views[viewName]) {
+      views[viewName].style.display = 'block';
+
+      // Acciones específicas por vista
+      if (viewName === 'ejecutar') {
+        connectWebSocket();
+      } else if (viewName === 'agentes') {
+        loadAgents();
+      } else if (viewName === 'historial') {
+        loadHistory();
+      }
+    }
+  });
+});
+
+// ========================================
+// WEBSOCKET Y EJECUCIÓN DE WORKFLOWS
+// ========================================
+
+const API_URL = 'http://localhost:8000';
+let ws = null;
+let wsReconnectAttempts = 0;
+const WS_MAX_RECONNECT = 5;
+
+function connectWebSocket() {
+  if (ws && ws.readyState === WebSocket.OPEN) return; // Ya conectado
+
+  ws = new WebSocket('ws://localhost:8000/ws');
+
+  ws.onopen = () => {
+    console.log('✅ WebSocket conectado');
+    wsReconnectAttempts = 0;
+    updateWSStatus(true);
+  };
+
+  ws.onmessage = (event) => {
+    try {
+      const data = JSON.parse(event.data);
+      console.log('📡 WebSocket mensaje:', data);
+
+      if (data.type === 'agent_status') {
+        const emoji = data.status === 'working' ? '⚙️' :
+                     data.status === 'online' ? '✅' :
+                     data.status === 'error' ? '❌' : '⏸️';
+        addLogEntry(`${emoji} ${data.agent_name}: ${data.activity || data.status}`);
+      }
+
+      if (data.type === 'workflow_started') {
+        addLogEntry('🚀 Workflow iniciado', 'success');
+      }
+
+      if (data.type === 'workflow_completed') {
+        addLogEntry('✅ Workflow completado', 'success');
+        document.getElementById('executing-indicator').style.display = 'none';
+        document.getElementById('btn-execute').disabled = false;
+      }
+
+    } catch (err) {
+      console.error('Error procesando mensaje WebSocket:', err);
+    }
+  };
+
+  ws.onerror = (error) => {
+    console.error('❌ WebSocket error:', error);
+    updateWSStatus(false);
+  };
+
+  ws.onclose = () => {
+    console.log('🔌 WebSocket desconectado');
+    updateWSStatus(false);
+
+    if (wsReconnectAttempts < WS_MAX_RECONNECT) {
+      wsReconnectAttempts++;
+      setTimeout(connectWebSocket, 3000);
+    }
+  };
+}
+
+function updateWSStatus(connected) {
+  const statusEl = document.getElementById('ws-status');
+  if (connected) {
+    statusEl.innerHTML = '<div style="width:8px; height:8px; border-radius:50%; background:#22c55e;"></div>En vivo';
+    statusEl.style.color = '#22c55e';
+  } else {
+    statusEl.innerHTML = '<div style="width:8px; height:8px; border-radius:50%; background:#94a3b8;"></div>Desconectado';
+    statusEl.style.color = '#94a3b8';
+  }
+}
+
+function addLogEntry(text, type = 'info') {
+  const log = document.getElementById('workflow-log');
+  const time = new Date().toLocaleTimeString('es-CL', {hour: '2-digit', minute: '2-digit', second: '2-digit'});
+
+  const colors = {
+    info: '#64748b',
+    success: '#22c55e',
+    error: '#ef4444'
+  };
+
+  const entry = document.createElement('div');
+  entry.style.cssText = `color: ${colors[type]}; margin-bottom: 4px; padding: 4px 0;`;
+  entry.innerHTML = `<span style="color:#94a3b8;">[${time}]</span> ${text}`;
+  log.appendChild(entry);
+  log.scrollTop = log.scrollHeight;
+}
+
+// Ejecutar workflow
+document.getElementById('btn-execute').addEventListener('click', async () => {
+  const instruction = document.getElementById('workflow-instruction').value.trim();
+
+  if (!instruction) {
+    alert('Por favor escribe una instrucción para los agentes');
+    return;
+  }
+
+  // Limpiar log
+  const log = document.getElementById('workflow-log');
+  log.innerHTML = '';
+
+  // Mostrar indicador
+  document.getElementById('executing-indicator').style.display = 'block';
+  document.getElementById('btn-execute').disabled = true;
+
+  addLogEntry('🔄 Enviando workflow al backend...', 'info');
+
+  try {
+    const response = await fetch(`${API_URL}/api/workflows/marketing/run`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ instruction })
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      addLogEntry('✅ Workflow completado exitosamente', 'success');
+
+      // Mostrar resultados
+      if (result.results) {
+        const r = result.results;
+        if (r.analisis_competencia) {
+          addLogEntry('📊 Análisis generado', 'success');
+        }
+        if (r.grilla_contenido) {
+          addLogEntry('📅 Grilla de contenido creada', 'success');
+        }
+        if (r.reporte) {
+          addLogEntry('📈 Reporte final generado', 'success');
+        }
+      }
+
+      // Mostrar errores si los hay
+      if (result.errors && result.errors.length > 0) {
+        result.errors.forEach(err => addLogEntry(err, 'error'));
+      }
+
+    } else {
+      addLogEntry('❌ Error: ' + (result.error || 'Error desconocido'), 'error');
+    }
+
+  } catch (error) {
+    addLogEntry('❌ Error de conexión con el backend', 'error');
+    console.error(error);
+  } finally {
+    document.getElementById('executing-indicator').style.display = 'none';
+    document.getElementById('btn-execute').disabled = false;
+  }
+});
+
+// Agregar animación spin
+const style = document.createElement('style');
+style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+document.head.appendChild(style);
+
+// ========================================
+// CARGAR AGENTES
+// ========================================
+async function loadAgents() {
+  const container = document.getElementById('agents-list');
+  container.innerHTML = '<div style="text-align:center; padding:60px; color:#94a3b8;">Cargando agentes...</div>';
+
+  try {
+    const response = await fetch(`${API_URL}/api/agents`);
+    const agents = await response.json();
+
+    if (agents.length === 0) {
+      container.innerHTML = '<div style="text-align:center; padding:60px; color:#94a3b8;">No hay agentes configurados</div>';
+      return;
+    }
+
+    // Agrupar por departamento
+    const byDept = {};
+    agents.forEach(a => {
+      if (!byDept[a.department]) byDept[a.department] = [];
+      byDept[a.department].push(a);
+    });
+
+    container.innerHTML = '';
+
+    Object.keys(byDept).forEach(dept => {
+      const deptAgents = byDept[dept];
+
+      const deptSection = document.createElement('div');
+      deptSection.style.cssText = 'grid-column: 1/-1; margin-top:20px;';
+      deptSection.innerHTML = `<h3 style="font-size:15px; font-weight:700; color:#0f172a; margin-bottom:12px;">📁 ${dept}</h3>`;
+      container.appendChild(deptSection);
+
+      deptAgents.forEach(agent => {
+        const card = document.createElement('div');
+        card.style.cssText = 'background:white; border-radius:12px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.06); cursor:pointer; transition:all 0.3s;';
+        card.onmouseenter = () => card.style.transform = 'translateY(-4px)';
+        card.onmouseleave = () => card.style.transform = 'translateY(0)';
+
+        const statusColor = agent.status === 'online' ? '#22c55e' :
+                           agent.status === 'working' ? '#f59e0b' : '#94a3b8';
+
+        card.innerHTML = `
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+            <div style="width:40px; height:40px; border-radius:50%; background:#0f172a; color:white; display:flex; align-items:center; justify-content:center; font-weight:700;">
+              ${agent.name.charAt(0)}
+            </div>
+            <div style="flex:1;">
+              <div style="font-weight:700; font-size:14px; color:#0f172a;">${agent.name}</div>
+              <div style="font-size:12px; color:#64748b;">${agent.role}</div>
+            </div>
+            <div style="width:10px; height:10px; border-radius:50%; background:${statusColor};"></div>
+          </div>
+          <div style="font-size:12px; color:#64748b; line-height:1.5; margin-bottom:12px;">
+            ${agent.current_activity || 'Sin actividad'}
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button onclick="editAgent(${agent.id})" style="flex:1; padding:8px; background:#f1f5f9; border:none; border-radius:6px; font-size:12px; font-weight:600; cursor:pointer;">
+              ✏️ Editar
+            </button>
+            <button onclick="viewAgentDetails(${agent.id})" style="flex:1; padding:8px; background:#f1f5f9; border:none; border-radius:6px; font-size:12px; font-weight:600; cursor:pointer;">
+              👁️ Ver
+            </button>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    });
+
+  } catch (err) {
+    console.error('Error cargando agentes:', err);
+    container.innerHTML = '<div style="text-align:center; padding:60px; color:#ef4444;">Error al cargar agentes</div>';
+  }
+}
+
+function editAgent(id) {
+  alert(`Editar agente ID: ${id}\n(Funcionalidad por implementar)`);
+}
+
+function viewAgentDetails(id) {
+  alert(`Ver detalles agente ID: ${id}\n(Funcionalidad por implementar)`);
+}
+
+// ========================================
+// CARGAR HISTORIAL
+// ========================================
+async function loadHistory() {
+  const container = document.getElementById('history-list');
+  container.innerHTML = '<div style="text-align:center; padding:60px; color:#94a3b8;">Cargando historial...</div>';
+
+  try {
+    const response = await fetch(`${API_URL}/api/workflows/executions?limit=50`);
+    const executions = await response.json();
+
+    if (executions.length === 0) {
+      container.innerHTML = '<div style="text-align:center; padding:60px; color:#94a3b8;">No hay workflows ejecutados todavía</div>';
+      return;
+    }
+
+    container.innerHTML = '';
+
+    executions.forEach(exec => {
+      const card = document.createElement('div');
+      card.style.cssText = 'padding:16px; border:1px solid #e2e8f0; border-radius:10px; cursor:pointer; transition:all 0.3s;';
+      card.onmouseenter = () => card.style.background = '#f8fafc';
+      card.onmouseleave = () => card.style.background = 'white';
+
+      const statusColor = exec.status === 'completed' ? '#22c55e' :
+                         exec.status === 'failed' ? '#ef4444' : '#f59e0b';
+      const statusText = exec.status === 'completed' ? 'Completado' :
+                        exec.status === 'failed' ? 'Fallido' : 'En progreso';
+
+      const date = new Date(exec.started_at).toLocaleString('es-CL');
+
+      card.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:8px;">
+          <div>
+            <div style="font-weight:700; font-size:14px; color:#0f172a; margin-bottom:4px;">
+              ${exec.workflow_name}
+            </div>
+            <div style="font-size:12px; color:#64748b;">
+              ${date}
+            </div>
+          </div>
+          <div style="display:inline-flex; align-items:center; gap:6px; padding:4px 12px; background:${statusColor}15; border-radius:12px; font-size:11px; font-weight:600; color:${statusColor};">
+            <div style="width:6px; height:6px; border-radius:50%; background:${statusColor};"></div>
+            ${statusText}
+          </div>
+        </div>
+        <div style="font-size:12px; color:#64748b;">
+          Execution ID: ${exec.id}
+        </div>
+      `;
+
+      card.onclick = () => viewExecutionDetails(exec.id);
+      container.appendChild(card);
+    });
+
+  } catch (err) {
+    console.error('Error cargando historial:', err);
+    container.innerHTML = '<div style="text-align:center; padding:60px; color:#ef4444;">Error al cargar historial</div>';
+  }
+}
+
+function viewExecutionDetails(id) {
+  alert(`Ver detalles de ejecución ID: ${id}\n(Funcionalidad por implementar)`);
+}
+
+// ========================================
+// TABS DE CONFIGURACIÓN
+// ========================================
+const configTabs = document.querySelectorAll('.config-tab');
+configTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const configName = tab.dataset.config;
+
+    // Remover active de todos
+    configTabs.forEach(t => {
+      t.style.color = '#64748b';
+      t.style.borderBottom = 'none';
+    });
+
+    // Activar el clickeado
+    tab.style.color = '#0f172a';
+    tab.style.borderBottom = '3px solid #0f172a';
+
+    // Ocultar todos los paneles
+    document.querySelectorAll('.config-panel').forEach(p => p.style.display = 'none');
+
+    // Mostrar el panel seleccionado
+    const panel = document.getElementById(`config-${configName}`);
+    if (panel) panel.style.display = 'block';
+  });
+});
+</script>
+
+</body>
+</html>

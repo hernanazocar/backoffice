@@ -2,44 +2,61 @@
 
 Sistema de gestión organizacional automatizado con agentes Claude Code que funcionan 24/7 en la nube.
 
-## 📊 Estructura Organizacional
+## 📊 Estructura Organizacional (Universal)
 
-### Gerencia General
-- **Reporte consolidado**: 8:00 AM (Chile)
+### 👔 Gerencia General
+- **Gerente General**: Reporte consolidado a las 8:00 AM
 - **Email + Google Calendar**
 
-### 📢 Marketing (Gerente + 3 Trabajadores)
+### 💼 Comercial (5 agentes)
+**Gerente Comercial** (Líder del área)
+- Ejecutivo de Ventas
+- Prospector de Leads
+- Analista Comercial
+- Coordinador de Cuentas
+
+### 📢 Marketing (5 agentes)
+**Gerente de Marketing** (Líder del área)
 - Community Manager
-- Analista de Competencia  
-- Coordinador de Marketing
+- Diseñador Gráfico
+- Paid Media Specialist
+- Analista de Marketing
 
-### 💰 Ventas (Gerente + 3 Trabajadores)
-- Ejecutivo de Prospección
-- Analista de Pipeline
-- Coordinador de Seguimiento
+### 💰 Finanzas (5 agentes)
+**Gerente de Finanzas** (Líder del área)
+- Contador
+- Analista Financiero
+- Coordinador de Cobranzas
+- Tesorero
 
-### 💻 Desarrollo (Gerente + 3 Trabajadores)
-- Analista de Bugs
-- Revisor de Features
-- Coordinador Técnico
+### ⚙️ Operaciones (5 agentes)
+**Gerente de Operaciones** (Líder del área)
+- Coordinador Logístico
+- Analista de Inventario
+- Coordinador de Compras
+- Asistente Administrativo
 
-### ⚙️ Operaciones (Gerente + 3 Trabajadores)
-- Analista de Sistemas
-- Monitor de Incidentes
-- Coordinador de Métricas
+### 🤝 Atención al Cliente (5 agentes)
+**Gerente de Atención al Cliente** (Líder del área)
+- Ejecutivo de Soporte
+- Coordinador de Reclamos
+- Analista de Satisfacción
+- Coordinador Postventa
 
 ## 🔄 Flujo de Trabajo Automático
 
-### 6:00 AM - Trabajadores
-Cada agente trabajador ejecuta sus análisis y genera reportes en:
+### 6:00 AM - Agentes Especializados
+Los 20 agentes ejecutan sus tareas específicas y generan reportes en:
 ```
-/reportes/{departamento}/{rol}/YYYY-MM-DD.md
+/reportes/{departamento}/{cargo}/YYYY-MM-DD.md
+Ejemplo: /reportes/marketing/community-manager/2026-09-21.md
 ```
 
-### 7:00 AM - Gerentes
-Gerentes de área consolidan reportes de su equipo en:
+### 7:00 AM - Gerentes de Área
+Los 5 gerentes consolidan reportes de su departamento en:
 ```
 /reportes/gerentes/{departamento}/YYYY-MM-DD.md
+Ejemplo: /reportes/gerentes/marketing/2026-09-21.md
 ```
 
 ### 8:00 AM - Gerencia General
@@ -84,20 +101,27 @@ El agente mueve el archivo a `/completadas/` al terminar.
 ```
 agentes-org/
 ├── tareas/                    # Sistema de tareas
-│   ├── marketing/
-│   │   ├── community-manager/
+│   ├── comercial/
+│   │   ├── ejecutivo-ventas/
 │   │   │   ├── pendientes/   # Tareas por ejecutar
 │   │   │   └── completadas/  # Tareas finalizadas
-│   │   ├── analista-competencia/
-│   │   └── coordinador-marketing/
-│   ├── ventas/
-│   ├── desarrollo/
-│   └── operaciones/
-├── reportes/                  # Reportes generados
+│   │   ├── prospector-leads/
+│   │   ├── analista-comercial/
+│   │   └── coordinador-cuentas/
 │   ├── marketing/
-│   ├── ventas/
-│   ├── desarrollo/
+│   │   ├── community-manager/
+│   │   ├── disenador-grafico/
+│   │   ├── paid-media/
+│   │   └── analista-marketing/
+│   ├── finanzas/
 │   ├── operaciones/
+│   └── atencion-cliente/
+├── reportes/                  # Reportes generados
+│   ├── comercial/
+│   ├── marketing/
+│   ├── finanzas/
+│   ├── operaciones/
+│   ├── atencion-cliente/
 │   ├── gerentes/             # Reportes consolidados por gerente
 │   └── gerencia-general/     # Reporte final diario
 └── dashboard/                # Estado en tiempo real
@@ -127,9 +151,19 @@ Cada agente cloud está configurado con:
 ## 📝 Próximos Pasos
 
 1. ✅ Crear repositorio y estructura
-2. ⏳ Crear agentes cloud (17 total)
+2. ⏳ Crear agentes cloud (26 total: 1 Gerencia General + 5 Gerentes de Área + 20 Agentes Especializados)
 3. ⏳ Configurar schedules automáticos
 4. ⏳ Probar flujo completo
+
+## 🌍 Sistema Universal
+
+Esta estructura funciona para **CUALQUIER** industria:
+- ✅ Ferretería → inventario, ventas, atención
+- ✅ Restaurante → reservas, delivery, postventa
+- ✅ E-commerce → productos, campañas, logística
+- ✅ Consultora → propuestas, proyectos, satisfacción
+- ✅ Software → ventas, soporte técnico, métricas
+- ✅ Y más...
 
 ---
 
