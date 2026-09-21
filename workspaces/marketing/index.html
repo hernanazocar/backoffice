@@ -157,26 +157,26 @@ h1 {
   <!-- KPIs del Área -->
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-label">Posts Pendientes</div>
-      <div class="stat-value" id="posts-pending">-</div>
-      <div class="stat-change">Para aprobar</div>
+      <div class="stat-label">ROI de Marketing</div>
+      <div class="stat-value">3.2x</div>
+      <div class="stat-change">+18% vs trimestre anterior</div>
     </div>
 
     <div class="stat-card">
-      <div class="stat-label">Posts Publicados</div>
-      <div class="stat-value" id="posts-published">-</div>
+      <div class="stat-label">Leads Generados</div>
+      <div class="stat-value">347</div>
       <div class="stat-change">Este mes</div>
     </div>
 
     <div class="stat-card">
-      <div class="stat-label">Engagement Rate</div>
-      <div class="stat-value">3.8%</div>
-      <div class="stat-change">+0.3% vs mes anterior</div>
+      <div class="stat-label">Tasa de Conversión</div>
+      <div class="stat-value">4.2%</div>
+      <div class="stat-change">+0.8% vs mes anterior</div>
     </div>
 
     <div class="stat-card">
       <div class="stat-label">Alcance Total</div>
-      <div class="stat-value">12.5K</div>
+      <div class="stat-value">124K</div>
       <div class="stat-change">+12% vs mes anterior</div>
     </div>
   </div>
@@ -189,35 +189,41 @@ h1 {
       </svg>
       Equipo
     </button>
-    <button class="tab" onclick="switchTab('posts')">
+    <button class="tab" onclick="switchTab('mercado')">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+        <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
       </svg>
-      Posts Pendientes
+      Investigación de Mercado
     </button>
-    <button class="tab" onclick="switchTab('published')">
+    <button class="tab" onclick="switchTab('competencia')">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
-        <polyline points="20 6 9 17 4 12"/>
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/>
       </svg>
-      Publicados
+      Competencia
     </button>
-    <button class="tab" onclick="switchTab('calendario')">
+    <button class="tab" onclick="switchTab('rrss')">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
       </svg>
-      Calendario
+      Redes Sociales
+    </button>
+    <button class="tab" onclick="switchTab('leads')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      Lead Generation
+    </button>
+    <button class="tab" onclick="switchTab('diseno')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+      </svg>
+      Diseño & Contenido
     </button>
     <button class="tab" onclick="switchTab('analytics')">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
         <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
       </svg>
       Analíticas
-    </button>
-    <button class="tab" onclick="switchTab('campanas')">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
-        <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/>
-      </svg>
-      Campañas
     </button>
   </div>
 
@@ -246,7 +252,33 @@ h1 {
         </div>
         <div style="background: #f8fafc; border-radius: 8px; padding: 12px; margin-bottom: 8px;">
           <div style="font-size: 11px; color: #6e7781; margin-bottom: 4px;">Actividad actual</div>
-          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Supervisando equipo y generando reportes</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Supervisando estrategia y coordinando equipo</div>
+        </div>
+        <div style="font-size: 11px; color: #6e7781;">
+          <strong>Última ejecución:</strong> Esperando inicio
+        </div>
+      </div>
+
+      <!-- Market Intelligence -->
+      <div style="background: white; border: 1px solid #e8eaed; border-radius: 12px; padding: 16px;">
+        <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
+          <div style="width: 40px; height: 40px; border-radius: 8px; background: #0f172a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 14px; font-weight: 700; margin-bottom: 2px;">Market Intelligence</div>
+            <div style="font-size: 11px; color: #6e7781; margin-bottom: 6px;">Agente IA</div>
+            <div style="display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: #e6f9f0; border-radius: 12px; font-size: 10px; font-weight: 600; color: #22c55e;">
+              <div style="width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: blink 2s ease-in-out infinite;"></div>
+              En línea
+            </div>
+          </div>
+        </div>
+        <div style="background: #f8fafc; border-radius: 8px; padding: 12px; margin-bottom: 8px;">
+          <div style="font-size: 11px; color: #6e7781; margin-bottom: 4px;">Actividad actual</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Analizando mercado, competencia y precios</div>
         </div>
         <div style="font-size: 11px; color: #6e7781;">
           <strong>Última ejecución:</strong> Esperando inicio
@@ -258,7 +290,7 @@ h1 {
         <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
           <div style="width: 40px; height: 40px; border-radius: 8px; background: #0f172a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
             </svg>
           </div>
           <div style="flex: 1; min-width: 0;">
@@ -272,7 +304,33 @@ h1 {
         </div>
         <div style="background: #f8fafc; border-radius: 8px; padding: 12px; margin-bottom: 8px;">
           <div style="font-size: 11px; color: #6e7781; margin-bottom: 4px;">Actividad actual</div>
-          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Creando contenido para redes sociales</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Gestionando redes sociales y contenido</div>
+        </div>
+        <div style="font-size: 11px; color: #6e7781;">
+          <strong>Última ejecución:</strong> Esperando inicio
+        </div>
+      </div>
+
+      <!-- Growth Marketing Specialist -->
+      <div style="background: white; border: 1px solid #e8eaed; border-radius: 12px; padding: 16px;">
+        <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
+          <div style="width: 40px; height: 40px; border-radius: 8px; background: #0f172a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 14px; font-weight: 700; margin-bottom: 2px;">Growth Marketing Specialist</div>
+            <div style="font-size: 11px; color: #6e7781; margin-bottom: 6px;">Agente IA</div>
+            <div style="display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: #e6f9f0; border-radius: 12px; font-size: 10px; font-weight: 600; color: #22c55e;">
+              <div style="width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: blink 2s ease-in-out infinite;"></div>
+              En línea
+            </div>
+          </div>
+        </div>
+        <div style="background: #f8fafc; border-radius: 8px; padding: 12px; margin-bottom: 8px;">
+          <div style="font-size: 11px; color: #6e7781; margin-bottom: 4px;">Actividad actual</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Generando leads y optimizando conversiones</div>
         </div>
         <div style="font-size: 11px; color: #6e7781;">
           <strong>Última ejecución:</strong> Esperando inicio
@@ -298,33 +356,7 @@ h1 {
         </div>
         <div style="background: #f8fafc; border-radius: 8px; padding: 12px; margin-bottom: 8px;">
           <div style="font-size: 11px; color: #6e7781; margin-bottom: 4px;">Actividad actual</div>
-          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Generando piezas visuales con DALL-E</div>
-        </div>
-        <div style="font-size: 11px; color: #6e7781;">
-          <strong>Última ejecución:</strong> Esperando inicio
-        </div>
-      </div>
-
-      <!-- Paid Media Specialist -->
-      <div style="background: white; border: 1px solid #e8eaed; border-radius: 12px; padding: 16px;">
-        <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
-          <div style="width: 40px; height: 40px; border-radius: 8px; background: #0f172a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/>
-            </svg>
-          </div>
-          <div style="flex: 1; min-width: 0;">
-            <div style="font-size: 14px; font-weight: 700; margin-bottom: 2px;">Paid Media Specialist</div>
-            <div style="font-size: 11px; color: #6e7781; margin-bottom: 6px;">Agente IA</div>
-            <div style="display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: #e6f9f0; border-radius: 12px; font-size: 10px; font-weight: 600; color: #22c55e;">
-              <div style="width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: blink 2s ease-in-out infinite;"></div>
-              En línea
-            </div>
-          </div>
-        </div>
-        <div style="background: #f8fafc; border-radius: 8px; padding: 12px; margin-bottom: 8px;">
-          <div style="font-size: 11px; color: #6e7781; margin-bottom: 4px;">Actividad actual</div>
-          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Optimizando campañas publicitarias</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Creando piezas gráficas y branding</div>
         </div>
         <div style="font-size: 11px; color: #6e7781;">
           <strong>Última ejecución:</strong> Esperando inicio
@@ -350,7 +382,7 @@ h1 {
         </div>
         <div style="background: #f8fafc; border-radius: 8px; padding: 12px; margin-bottom: 8px;">
           <div style="font-size: 11px; color: #6e7781; margin-bottom: 4px;">Actividad actual</div>
-          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Analizando métricas y tendencias</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1e293b;">Analizando métricas y generando reportes</div>
         </div>
         <div style="font-size: 11px; color: #6e7781;">
           <strong>Última ejecución:</strong> Esperando inicio
@@ -360,42 +392,182 @@ h1 {
     </div>
   </div>
 
-  <div id="tab-posts" class="tab-content">
-    <!-- El módulo marketing-posts.js inyectará aquí -->
-    <div id="posts-container" style="text-align: center; padding: 60px; color: #6e7781;">
-      Cargando posts pendientes...
+  <div id="tab-mercado" class="tab-content">
+    <div style="background: white; padding: 24px; border-radius: 12px;">
+      <h2 style="margin-bottom: 16px; font-size: 18px; font-weight: 700;">Investigación de Mercado</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;">
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 13px; font-weight: 700; color: #6e7781; margin-bottom: 8px;">ESTUDIOS DE MERCADO</div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">3</div>
+          <div style="font-size: 12px; color: #6e7781;">Estudios activos</div>
+          <button style="margin-top: 12px; padding: 8px 16px; background: #f8fafc; border: 1px solid #e8eaed; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">Ver estudios</button>
+        </div>
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 13px; font-weight: 700; color: #6e7781; margin-bottom: 8px;">TENDENCIAS</div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">12</div>
+          <div style="font-size: 12px; color: #6e7781;">Tendencias identificadas</div>
+          <button style="margin-top: 12px; padding: 8px 16px; background: #f8fafc; border: 1px solid #e8eaed; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">Ver tendencias</button>
+        </div>
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 13px; font-weight: 700; color: #6e7781; margin-bottom: 8px;">SEGMENTOS</div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">5</div>
+          <div style="font-size: 12px; color: #6e7781;">Segmentos de clientes</div>
+          <button style="margin-top: 12px; padding: 8px 16px; background: #f8fafc; border: 1px solid #e8eaed; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">Ver segmentos</button>
+        </div>
+
+      </div>
     </div>
   </div>
 
-  <div id="tab-published" class="tab-content">
-    <div style="background: white; padding: 40px; border-radius: 12px; text-align: center;">
-      <div style="font-size: 48px; margin-bottom: 16px;">📱</div>
-      <h2 style="margin-bottom: 8px;">Posts Publicados</h2>
-      <p style="color: #6e7781;">Historial de posts ya publicados en redes sociales</p>
+  <div id="tab-competencia" class="tab-content">
+    <div style="background: white; padding: 24px; border-radius: 12px;">
+      <h2 style="margin-bottom: 16px; font-size: 18px; font-weight: 700;">Análisis de Competencia</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;">
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 13px; font-weight: 700; color: #6e7781; margin-bottom: 8px;">COMPETIDORES</div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">8</div>
+          <div style="font-size: 12px; color: #6e7781;">Competidores monitoreados</div>
+          <button style="margin-top: 12px; padding: 8px 16px; background: #f8fafc; border: 1px solid #e8eaed; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">Ver análisis</button>
+        </div>
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 13px; font-weight: 700; color: #6e7781; margin-bottom: 8px;">PRECIOS</div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">-</div>
+          <div style="font-size: 12px; color: #6e7781;">Último análisis de precios</div>
+          <button style="margin-top: 12px; padding: 8px 16px; background: #f8fafc; border: 1px solid #e8eaed; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">Ver comparativa</button>
+        </div>
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 13px; font-weight: 700; color: #6e7781; margin-bottom: 8px;">RRSS COMPETENCIA</div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">24</div>
+          <div style="font-size: 12px; color: #6e7781;">Posts analizados hoy</div>
+          <button style="margin-top: 12px; padding: 8px 16px; background: #f8fafc; border: 1px solid #e8eaed; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">Ver actividad</button>
+        </div>
+
+      </div>
     </div>
   </div>
 
-  <div id="tab-calendario" class="tab-content">
-    <div style="background: white; padding: 40px; border-radius: 12px; text-align: center;">
-      <div style="font-size: 48px; margin-bottom: 16px;">📅</div>
-      <h2 style="margin-bottom: 8px;">Calendario de Contenidos</h2>
-      <p style="color: #6e7781;">Vista semanal y mensual de posts programados</p>
+  <div id="tab-rrss" class="tab-content">
+    <div style="background: white; padding: 24px; border-radius: 12px;">
+      <h2 style="margin-bottom: 16px; font-size: 18px; font-weight: 700;">Redes Sociales</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;">
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 16px;">
+          <div style="font-size: 12px; color: #6e7781; margin-bottom: 4px;">Posts Pendientes</div>
+          <div style="font-size: 28px; font-weight: 700;" id="rrss-pending">-</div>
+        </div>
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 16px;">
+          <div style="font-size: 12px; color: #6e7781; margin-bottom: 4px;">Publicados (mes)</div>
+          <div style="font-size: 28px; font-weight: 700;" id="rrss-published">-</div>
+        </div>
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 16px;">
+          <div style="font-size: 12px; color: #6e7781; margin-bottom: 4px;">Programados</div>
+          <div style="font-size: 28px; font-weight: 700;">12</div>
+        </div>
+      </div>
+
+      <!-- El módulo marketing-posts.js inyectará aquí -->
+      <div id="posts-container" style="text-align: center; padding: 40px; color: #6e7781;">
+        Cargando posts pendientes...
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-leads" class="tab-content">
+    <div style="background: white; padding: 24px; border-radius: 12px;">
+      <h2 style="margin-bottom: 16px; font-size: 18px; font-weight: 700;">Lead Generation</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;">
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 13px; font-weight: 700; color: #6e7781; margin-bottom: 8px;">CAMPAÑAS ACTIVAS</div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">4</div>
+          <div style="font-size: 12px; color: #6e7781;">Campañas de captación</div>
+          <button style="margin-top: 12px; padding: 8px 16px; background: #f8fafc; border: 1px solid #e8eaed; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">Ver campañas</button>
+        </div>
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 13px; font-weight: 700; color: #6e7781; margin-bottom: 8px;">LEADS (MES)</div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">347</div>
+          <div style="font-size: 12px; color: #22c55e;">+23% vs mes anterior</div>
+          <button style="margin-top: 12px; padding: 8px 16px; background: #f8fafc; border: 1px solid #e8eaed; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">Ver leads</button>
+        </div>
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 13px; font-weight: 700; color: #6e7781; margin-bottom: 8px;">TASA DE CONVERSIÓN</div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">4.2%</div>
+          <div style="font-size: 12px; color: #22c55e;">+0.8% vs mes anterior</div>
+          <button style="margin-top: 12px; padding: 8px 16px; background: #f8fafc; border: 1px solid #e8eaed; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">Ver funnel</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-diseno" class="tab-content">
+    <div style="background: white; padding: 24px; border-radius: 12px;">
+      <h2 style="margin-bottom: 16px; font-size: 18px; font-weight: 700;">Diseño & Contenido</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;">
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 13px; font-weight: 700; color: #6e7781; margin-bottom: 8px;">PIEZAS GRÁFICAS</div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">28</div>
+          <div style="font-size: 12px; color: #6e7781;">Diseños este mes</div>
+          <button style="margin-top: 12px; padding: 8px 16px; background: #f8fafc; border: 1px solid #e8eaed; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">Ver galería</button>
+        </div>
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 13px; font-weight: 700; color: #6e7781; margin-bottom: 8px;">VIDEOS</div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">6</div>
+          <div style="font-size: 12px; color: #6e7781;">Videos producidos</div>
+          <button style="margin-top: 12px; padding: 8px 16px; background: #f8fafc; border: 1px solid #e8eaed; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">Ver videos</button>
+        </div>
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 13px; font-weight: 700; color: #6e7781; margin-bottom: 8px;">BRANDING</div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">12</div>
+          <div style="font-size: 12px; color: #6e7781;">Materiales de marca</div>
+          <button style="margin-top: 12px; padding: 8px 16px; background: #f8fafc; border: 1px solid #e8eaed; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">Ver archivos</button>
+        </div>
+
+      </div>
     </div>
   </div>
 
   <div id="tab-analytics" class="tab-content">
-    <div style="background: white; padding: 40px; border-radius: 12px; text-align: center;">
-      <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
-      <h2 style="margin-bottom: 8px;">Analíticas de Marketing</h2>
-      <p style="color: #6e7781;">Métricas, insights y reportes del área</p>
-    </div>
-  </div>
+    <div style="background: white; padding: 24px; border-radius: 12px;">
+      <h2 style="margin-bottom: 16px; font-size: 18px; font-weight: 700;">Analíticas de Marketing</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px;">
 
-  <div id="tab-campanas" class="tab-content">
-    <div style="background: white; padding: 40px; border-radius: 12px; text-align: center;">
-      <div style="font-size: 48px; margin-bottom: 16px;">💰</div>
-      <h2 style="margin-bottom: 8px;">Campañas Publicitarias</h2>
-      <p style="color: #6e7781;">Gestión de campañas en Meta Ads, Google Ads y LinkedIn</p>
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 12px; color: #6e7781; margin-bottom: 4px;">ROI Campañas</div>
+          <div style="font-size: 28px; font-weight: 700; margin-bottom: 4px;">3.2x</div>
+          <div style="font-size: 11px; color: #22c55e;">+18% vs trimestre anterior</div>
+        </div>
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 12px; color: #6e7781; margin-bottom: 4px;">Alcance Total</div>
+          <div style="font-size: 28px; font-weight: 700; margin-bottom: 4px;">124K</div>
+          <div style="font-size: 11px; color: #22c55e;">+12% vs mes anterior</div>
+        </div>
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 12px; color: #6e7781; margin-bottom: 4px;">Engagement</div>
+          <div style="font-size: 28px; font-weight: 700; margin-bottom: 4px;">4.8%</div>
+          <div style="font-size: 11px; color: #22c55e;">+0.6% vs mes anterior</div>
+        </div>
+
+        <div style="border: 1px solid #e8eaed; border-radius: 12px; padding: 20px;">
+          <div style="font-size: 12px; color: #6e7781; margin-bottom: 4px;">Leads Generados</div>
+          <div style="font-size: 28px; font-weight: 700; margin-bottom: 4px;">347</div>
+          <div style="font-size: 11px; color: #22c55e;">+23% vs mes anterior</div>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>
