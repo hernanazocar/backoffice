@@ -1372,9 +1372,17 @@ body {
       <div class="view" id="viewMarketing">
         <!-- Header de vuelta -->
         <div style="margin-bottom: 20px;">
-          <button onclick="backToWorkspaces()" style="padding: 8px 16px; background: #f1f5f9; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; color: #1e293b; margin-bottom: 12px;">
-            ← Volver a Departamentos
-          </button>
+          <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+            <button onclick="backToWorkspaces()" style="padding: 8px 16px; background: #f1f5f9; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; color: #1e293b;">
+              ← Volver a Departamentos
+            </button>
+            <button id="execute-marketing-btn" onclick="executeMarketingWorkflow()" style="padding: 8px 20px; background: #0f172a; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+              Ejecutar Equipo
+            </button>
+          </div>
           <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 6px; color: var(--text-primary);">Marketing</h2>
           <p style="color: var(--text-secondary); font-size: 13px;">Investigación de mercado, competencia, redes sociales, lead generation, diseño y analíticas</p>
         </div>
@@ -2953,7 +2961,7 @@ connectWebSocket();
 // Cargar badge de Espacios de Trabajo
 async function loadWorkspacesBadge() {
   try {
-    const response = await fetch('http://localhost:5000/api/marketing/status');
+    const response = await fetch('http://localhost:5001/api/marketing/status');
     const data = await response.json();
 
     if (data.success && data.pending_count > 0) {
@@ -2985,7 +2993,7 @@ function openWorkspace(workspace) {
 // Cargar contador de pendientes en la vista de workspaces
 async function updateWorkspaceStats() {
   try {
-    const response = await fetch('http://localhost:5000/api/marketing/status');
+    const response = await fetch('http://localhost:5001/api/marketing/status');
     const data = await response.json();
 
     if (data.success) {
@@ -3037,6 +3045,77 @@ function switchMarketingTab(tabName) {
     content.style.display = 'block';
   }
 }
+
+// Función para ejecutar el workflow de Marketing
+async function executeMarketingWorkflow() {
+  const btn = document.getElementById('execute-marketing-btn');
+  const originalHTML = btn.innerHTML;
+
+  try {
+    // Cambiar estado del botón
+    btn.disabled = true;
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83"/></svg> Ejecutando...';
+    btn.style.opacity = '0.7';
+
+    // Llamar a la API
+    const response = await fetch('http://localhost:5001/api/marketing/execute-workflow', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'}
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      // Mostrar éxito
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Ejecutado';
+      btn.style.background = '#059669';
+
+      // Mensaje de éxito
+      alert('✅ Equipo de Marketing ejecutado\n\n' +
+            'El equipo está trabajando:\n' +
+            '• Gerente de Marketing - Coordinando\n' +
+            '• Market Intelligence - Analizando mercado\n' +
+            '• Community Manager - Creando posts\n' +
+            '• Growth Specialist - Generando leads\n' +
+            '• Diseñador Gráfico - Creando piezas\n' +
+            '• Analista - Generando reportes\n\n' +
+            'Tiempo estimado: ' + (data.estimated_time || '2-3 minutos') + '\n\n' +
+            'Ve a la tab "RRSS" para ver los posts generados.');
+
+      // Restaurar después de 3 segundos
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+        btn.style.background = '#0f172a';
+        btn.style.opacity = '1';
+      }, 3000);
+
+    } else {
+      throw new Error(data.error || 'Error desconocido');
+    }
+
+  } catch (error) {
+    console.error('Error ejecutando workflow:', error);
+
+    // Mostrar error
+    alert('❌ Error al ejecutar el equipo:\n\n' + error.message + '\n\n' +
+          'Verifica que:\n' +
+          '1. La API esté corriendo (puerto 5001)\n' +
+          '2. Las API keys estén configuradas en .env\n' +
+          '3. El entorno virtual esté activado');
+
+    // Restaurar botón
+    btn.disabled = false;
+    btn.innerHTML = originalHTML;
+    btn.style.background = '#0f172a';
+    btn.style.opacity = '1';
+  }
+}
+
+// Agregar estilos para la animación de spin
+const style = document.createElement('style');
+style.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
+document.head.appendChild(style);
 </script>
 
 </body>

@@ -225,6 +225,6 @@ if __name__ == '__main__':
     print("   GET  /api/marketing/posts/<id>/analytics")
     print("   GET  /api/marketing/status")
     print("   POST /api/marketing/execute-workflow  ← NUEVO: Ejecutar equipo")
-    print("\n🌐 Corriendo en http://localhost:5000")
+    print("\n🌐 Corriendo en http://localhost:5001")
 
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5001, host='127.0.0.1')
