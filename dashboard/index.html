@@ -622,7 +622,7 @@ body {
             <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
             <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
           </svg>
-          <span>Espacios de Trabajo</span>
+          <span>Departamentos</span>
           <div class="nav-badge" id="workspaces-badge" style="display: none;">0</div>
         </div>
         <div class="nav-item" data-view="monitor">
@@ -1198,154 +1198,169 @@ body {
 
       <!-- ESPACIOS DE TRABAJO -->
       <div class="view" id="viewWorkspaces">
-        <div style="margin-bottom: 24px;">
-          <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">🏢 Espacios de Trabajo</h2>
-          <p style="color: var(--text-secondary); font-size: 14px;">Gestiona cada área de la organización</p>
+        <div style="margin-bottom: 20px;">
+          <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 6px; color: var(--text-primary);">Departamentos</h2>
+          <p style="color: var(--text-secondary); font-size: 13px;">Selecciona un departamento para gestionar su operación</p>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;">
 
           <!-- Marketing -->
-          <div class="card" onclick="openWorkspace('marketing')" style="cursor: pointer; transition: all 0.3s;">
-            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
-              <div style="width: 56px; height: 56px; border-radius: 12px; background: linear-gradient(135deg, #ff6b35, #ec4899); display: flex; align-items: center; justify-content: center; font-size: 24px;">
-                📢
+          <div class="card" onclick="openWorkspace('marketing')" style="cursor: pointer; transition: all 0.2s; position: relative;">
+            <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
+              <div style="width: 40px; height: 40px; border-radius: 8px; background: #f8fafc; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/>
+                </svg>
               </div>
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Marketing</div>
-                <div style="font-size: 12px; color: var(--text-secondary);">5 agentes activos</div>
-              </div>
-              <div style="padding: 4px 12px; background: #e6f9f0; border-radius: 12px; font-size: 11px; font-weight: 600; color: #22c55e;">
-                ✓ Activo
+              <div style="flex: 1; min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <div style="font-size: 15px; font-weight: 700; color: var(--text-primary);">Marketing</div>
+                  <div style="padding: 2px 8px; background: var(--success); border-radius: 4px; font-size: 10px; font-weight: 600; color: white;">
+                    ACTIVO
+                  </div>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 12px; line-height: 1.4; margin: 0;">
+                  Contenido, campañas, analíticas y calendario
+                </p>
               </div>
             </div>
-            <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 12px;">
-              Gestiona contenido, campañas publicitarias, analíticas y calendario de publicaciones
-            </p>
-            <div style="display: flex; gap: 16px; padding-top: 12px; border-top: 1px solid var(--border);">
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700;" id="workspace-marketing-pending">-</div>
-                <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Pendientes</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 12px; border-top: 1px solid var(--border);">
+              <div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Pendientes</div>
+                <div style="font-size: 20px; font-weight: 700; color: var(--text-primary);" id="workspace-marketing-pending">-</div>
               </div>
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700;">5</div>
-                <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Agentes</div>
+              <div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Agentes</div>
+                <div style="font-size: 20px; font-weight: 700; color: var(--text-primary);">5</div>
               </div>
             </div>
           </div>
 
           <!-- Comercial -->
-          <div class="card" style="opacity: 0.6; cursor: not-allowed;">
-            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
-              <div style="width: 56px; height: 56px; border-radius: 12px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); display: flex; align-items: center; justify-content: center; font-size: 24px;">
-                💼
+          <div class="card" style="opacity: 0.5; cursor: not-allowed;">
+            <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
+              <div style="width: 40px; height: 40px; border-radius: 8px; background: #f8fafc; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
               </div>
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Comercial</div>
-                <div style="font-size: 12px; color: var(--text-secondary);">5 agentes</div>
-              </div>
-              <div style="padding: 4px 12px; background: #f1f5f9; border-radius: 12px; font-size: 11px; font-weight: 600; color: var(--text-muted);">
-                Próximamente
+              <div style="flex: 1; min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <div style="font-size: 15px; font-weight: 700; color: var(--text-primary);">Comercial</div>
+                  <div style="padding: 2px 8px; background: var(--text-muted); border-radius: 4px; font-size: 10px; font-weight: 600; color: white;">
+                    PRÓXIMO
+                  </div>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 12px; line-height: 1.4; margin: 0;">
+                  Cotizaciones, pipeline de ventas y oportunidades
+                </p>
               </div>
             </div>
-            <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 12px;">
-              Aprobar cotizaciones, gestionar pipeline de ventas y seguimiento de oportunidades
-            </p>
-            <div style="display: flex; gap: 16px; padding-top: 12px; border-top: 1px solid var(--border);">
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700;">-</div>
-                <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Pendientes</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 12px; border-top: 1px solid var(--border);">
+              <div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Pendientes</div>
+                <div style="font-size: 20px; font-weight: 700; color: var(--text-primary);">-</div>
               </div>
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700;">5</div>
-                <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Agentes</div>
+              <div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Agentes</div>
+                <div style="font-size: 20px; font-weight: 700; color: var(--text-primary);">5</div>
               </div>
             </div>
           </div>
 
           <!-- Finanzas -->
-          <div class="card" style="opacity: 0.6; cursor: not-allowed;">
-            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
-              <div style="width: 56px; height: 56px; border-radius: 12px; background: linear-gradient(135deg, #10b981, #059669); display: flex; align-items: center; justify-content: center; font-size: 24px;">
-                💰
+          <div class="card" style="opacity: 0.5; cursor: not-allowed;">
+            <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
+              <div style="width: 40px; height: 40px; border-radius: 8px; background: #f8fafc; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
               </div>
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Finanzas</div>
-                <div style="font-size: 12px; color: var(--text-secondary);">5 agentes</div>
-              </div>
-              <div style="padding: 4px 12px; background: #f1f5f9; border-radius: 12px; font-size: 11px; font-weight: 600; color: var(--text-muted);">
-                Próximamente
+              <div style="flex: 1; min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <div style="font-size: 15px; font-weight: 700; color: var(--text-primary);">Finanzas</div>
+                  <div style="padding: 2px 8px; background: var(--text-muted); border-radius: 4px; font-size: 10px; font-weight: 600; color: white;">
+                    PRÓXIMO
+                  </div>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 12px; line-height: 1.4; margin: 0;">
+                  Facturas, flujo de caja, cobranzas y reportes
+                </p>
               </div>
             </div>
-            <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 12px;">
-              Aprobar facturas, revisar flujo de caja, gestionar cobranzas y reportes financieros
-            </p>
-            <div style="display: flex; gap: 16px; padding-top: 12px; border-top: 1px solid var(--border);">
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700;">-</div>
-                <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Pendientes</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 12px; border-top: 1px solid var(--border);">
+              <div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Pendientes</div>
+                <div style="font-size: 20px; font-weight: 700; color: var(--text-primary);">-</div>
               </div>
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700;">5</div>
-                <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Agentes</div>
+              <div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Agentes</div>
+                <div style="font-size: 20px; font-weight: 700; color: var(--text-primary);">5</div>
               </div>
             </div>
           </div>
 
           <!-- Operaciones -->
-          <div class="card" style="opacity: 0.6; cursor: not-allowed;">
-            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
-              <div style="width: 56px; height: 56px; border-radius: 12px; background: linear-gradient(135deg, #f59e0b, #d97706); display: flex; align-items: center; justify-content: center; font-size: 24px;">
-                ⚙️
+          <div class="card" style="opacity: 0.5; cursor: not-allowed;">
+            <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
+              <div style="width: 40px; height: 40px; border-radius: 8px; background: #f8fafc; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m5.2-14.2l-4.2 4.2m-1.7 1.7l-4.2 4.2M23 12h-6m-6 0H1m14.2 5.2l-4.2-4.2m-1.7-1.7l-4.2-4.2"/>
+                </svg>
               </div>
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Operaciones</div>
-                <div style="font-size: 12px; color: var(--text-secondary);">5 agentes</div>
-              </div>
-              <div style="padding: 4px 12px; background: #f1f5f9; border-radius: 12px; font-size: 11px; font-weight: 600; color: var(--text-muted);">
-                Próximamente
+              <div style="flex: 1; min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <div style="font-size: 15px; font-weight: 700; color: var(--text-primary);">Operaciones</div>
+                  <div style="padding: 2px 8px; background: var(--text-muted); border-radius: 4px; font-size: 10px; font-weight: 600; color: white;">
+                    PRÓXIMO
+                  </div>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 12px; line-height: 1.4; margin: 0;">
+                  Inventario, órdenes de compra, logística y docs
+                </p>
               </div>
             </div>
-            <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 12px;">
-              Gestionar inventario, órdenes de compra, logística y documentación operativa
-            </p>
-            <div style="display: flex; gap: 16px; padding-top: 12px; border-top: 1px solid var(--border);">
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700;">-</div>
-                <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Pendientes</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 12px; border-top: 1px solid var(--border);">
+              <div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Pendientes</div>
+                <div style="font-size: 20px; font-weight: 700; color: var(--text-primary);">-</div>
               </div>
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700;">5</div>
-                <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Agentes</div>
+              <div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Agentes</div>
+                <div style="font-size: 20px; font-weight: 700; color: var(--text-primary);">5</div>
               </div>
             </div>
           </div>
 
           <!-- Atención al Cliente -->
-          <div class="card" style="opacity: 0.6; cursor: not-allowed;">
-            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
-              <div style="width: 56px; height: 56px; border-radius: 12px; background: linear-gradient(135deg, #8b5cf6, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 24px;">
-                🤝
+          <div class="card" style="opacity: 0.5; cursor: not-allowed;">
+            <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
+              <div style="width: 40px; height: 40px; border-radius: 8px; background: #f8fafc; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                </svg>
               </div>
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Atención al Cliente</div>
-                <div style="font-size: 12px; color: var(--text-secondary);">5 agentes</div>
-              </div>
-              <div style="padding: 4px 12px; background: #f1f5f9; border-radius: 12px; font-size: 11px; font-weight: 600; color: var(--text-muted);">
-                Próximamente
+              <div style="flex: 1; min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <div style="font-size: 15px; font-weight: 700; color: var(--text-primary);">Atención al Cliente</div>
+                  <div style="padding: 2px 8px; background: var(--text-muted); border-radius: 4px; font-size: 10px; font-weight: 600; color: white;">
+                    PRÓXIMO
+                  </div>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 12px; line-height: 1.4; margin: 0;">
+                  Tickets de soporte, reclamos y satisfacción
+                </p>
               </div>
             </div>
-            <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 12px;">
-              Gestionar tickets de soporte, reclamos, encuestas de satisfacción y seguimiento
-            </p>
-            <div style="display: flex; gap: 16px; padding-top: 12px; border-top: 1px solid var(--border);">
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700;">-</div>
-                <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Pendientes</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 12px; border-top: 1px solid var(--border);">
+              <div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Pendientes</div>
+                <div style="font-size: 20px; font-weight: 700; color: var(--text-primary);">-</div>
               </div>
-              <div style="flex: 1;">
-                <div style="font-size: 18px; font-weight: 700;">5</div>
-                <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Agentes</div>
+              <div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Agentes</div>
+                <div style="font-size: 20px; font-weight: 700; color: var(--text-primary);">5</div>
               </div>
             </div>
           </div>
@@ -1630,7 +1645,7 @@ const views = {
 
 const viewTitles = {
   dashboard: 'Vista General',
-  workspaces: 'Espacios de Trabajo',
+  workspaces: 'Departamentos',
   monitor: 'Monitor en Vivo',
   workflows: 'Gestión de Workflows',
   agentes: 'Gestión de Agentes',
